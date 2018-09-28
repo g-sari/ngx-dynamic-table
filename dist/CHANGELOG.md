@@ -1,3 +1,6 @@
+# 0.1.7
+- added declaration file for module
+
 # 0.1.6
 - changed transpile to typescript
 

@@ -1,10 +1,12 @@
 {
     "name": "ngx-dynamic-table",
     "description": "Create fancy complex tables dynamically.",
-    "version": "0.1.6",
+    "version": "0.1.7",
     "author": "Gökhan Sari",
     "license": "MIT License",
     "private": false,
+    "main": "dist/bundles/src/index",
+    "typings": "dist/bundles/src/index",
     "repository": {
         "type": "git",
         "url": "https://github.com/g-sari/ngx-dynamic-table.git"
