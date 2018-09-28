@@ -1,3 +1,6 @@
+# 0.1.4
+- changed rollup configs
+
 # 0.1.3
 - merged all index files to a single index.ts file
 
