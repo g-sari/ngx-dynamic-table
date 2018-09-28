@@ -7,9 +7,6 @@ import { DynamicTableOptionInterface } from './interfaces/dynamic-table-option.i
 import { DynamicTableActionMessageService } from './services/dynamic-table-action-message.service';
 import { DynamicTableMouseEventMessageService } from './services/dynamic-table-mouse-event-message.service';
 
-
-
-
 @Component({
     selector: 'dynamic-table',
     templateUrl: './dynamic-table.component.html',
