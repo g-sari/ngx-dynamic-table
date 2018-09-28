@@ -1,3 +1,6 @@
+# 0.1.3
+- merged all index files to a single index.ts file
+
 # 0.1.2
 - adapted index.ts files
 
