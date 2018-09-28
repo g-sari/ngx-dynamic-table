@@ -8,12 +8,12 @@ export default {
   dest: 'dist/bundles/ngx-dynamic-table.umd.js',
   format: 'umd',
   moduleName: 'ngx-dynamic-table.module',
-  external: ['@angular/core', '@angular/forms', '@angular/common', '@angular/platform-browser', '@angular/flex-layout', '@angular/material', 'lodash', 'rxjs', 'rxjs/operators'],
+  external: ['lodash'],
   plugins: [
     angular({
       replace: false, // additional replace `templateUrl` and `stylesUrls` in every `.js` file
     }),
-    typescript({lib: ["es5", "es6", "dom"], target: "es5"}),
+    typescript(),
     scss({
       //Choose *one* of these possible "output:..." options
       // Default behaviour is to write all styles to the bundle destination where .js is replaced by .css
