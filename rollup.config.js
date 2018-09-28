@@ -8,7 +8,17 @@ export default {
   dest: 'dist/bundles/ngx-dynamic-table.umd.js',
   format: 'umd',
   moduleName: 'ngx-dynamic-table.module',
-  external: ['lodash'],
+  external: [
+    '@angular/core',
+    '@angular/common',
+    '@angular/forms',
+    '@angular/platform-browser',
+    '@angular/animations',
+    '@angular/material',
+    '@angular/flex-layout',
+    'rxjs',
+    'lodash'
+  ],
   plugins: [
     angular({
       replace: false, // additional replace `templateUrl` and `stylesUrls` in every `.js` file

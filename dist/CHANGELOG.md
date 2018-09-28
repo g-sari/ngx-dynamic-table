@@ -1,3 +1,6 @@
+# 0.1.5
+- excluded dependencies from rollup
+
 # 0.1.4
 - changed rollup configs
 

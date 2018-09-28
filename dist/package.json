@@ -1,6 +1,6 @@
 {
   "name": "ngx-dynamic-material-table",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Create fancy complex tables dynamically.",
   "main": "bundles/ngx-dynamic-table.umd.js",
   "module": "index.js",
