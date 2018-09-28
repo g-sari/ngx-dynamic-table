@@ -10,6 +10,7 @@ dist/node_modules
 dist/src
 etc
 
+.rpt2_cache
 .idea
 .sass-cache
 .tmp

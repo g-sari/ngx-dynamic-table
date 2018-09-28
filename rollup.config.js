@@ -1,12 +1,11 @@
 import angular from 'rollup-plugin-angular';
-import typescript from 'rollup-plugin-typescript';
+import typescript from 'rollup-plugin-typescript2';
 import nodeResolve from 'rollup-plugin-node-resolve';
 import scss from 'rollup-plugin-scss'
 
 export default {
-  entry: 'index.ts',
+  entry: 'src/index.ts',
   dest: 'dist/bundles/ngx-dynamic-table.umd.js',
-  sourceMap: false,
   format: 'umd',
   moduleName: 'ngx-dynamic-table.module',
   external: ['@angular/core', '@angular/forms', '@angular/common', '@angular/platform-browser', '@angular/flex-layout', '@angular/material', 'lodash', 'rxjs', 'rxjs/operators'],
