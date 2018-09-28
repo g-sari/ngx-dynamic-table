@@ -1,7 +1,7 @@
 {
     "name": "ngx-dynamic-table",
     "description": "Create fancy complex tables dynamically.",
-    "version": "0.1.9",
+    "version": "0.2.0",
     "author": "Gökhan Sari",
     "license": "MIT License",
     "private": false,

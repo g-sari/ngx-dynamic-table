@@ -1,6 +1,6 @@
 {
   "name": "ngx-dynamic-material-table",
-  "version": "0.1.9",
+  "version": "0.2.0",
   "description": "Create fancy complex tables dynamically.",
   "main": "bundles/index",
   "typings": "bundles/index",

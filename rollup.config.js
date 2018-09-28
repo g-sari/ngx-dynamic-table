@@ -4,9 +4,10 @@ import nodeResolve from 'rollup-plugin-node-resolve';
 import scss from 'rollup-plugin-scss'
 
 export default {
-  entry: 'index.ts',
+  entry: 'dist/index.js',
   dest: 'dist/bundles/ngx-dynamic-table.umd.js',
   format: 'umd',
+  sourceMap: false,
   moduleName: 'ngx-dynamic-table.module',
   external: [
     '@angular/core',
