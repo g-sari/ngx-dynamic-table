@@ -1,21 +1,21 @@
 {
     "name": "ngx-dynamic-table",
     "description": "Create fancy complex tables dynamically.",
-    "version": "0.1.7",
+    "version": "0.1.8",
     "author": "Gökhan Sari",
     "license": "MIT License",
     "private": false,
-    "main": "dist/bundles/src/index",
-    "typings": "dist/bundles/src/index",
+    "main": "dist/index",
+    "typings": "dist/index",
     "repository": {
         "type": "git",
         "url": "https://github.com/g-sari/ngx-dynamic-table.git"
     },
     "scripts": {
         "docs": "node_modules/.bin/compodoc -p tsconfig.json -d documentation --theme original --hideGenerator",
-        "transpile": "tsc -p .",
+        "transpile": "tsc -p src",
         "package": "rollup -c",
-        "minify": "uglifyjs dist/bundles/ngx-dynamic-table.umd.js --screw-ie8 --compress --mangle --comments --output dist/bundles/ngx-dynamic-table.umd.min.js",
+        "minify": "uglifyjs dist/ngx-dynamic-table.umd.js --screw-ie8 --compress --mangle --comments --output dist/ngx-dynamic-table.umd.min.js",
         "build": "npm run docs && npm run transpile && npm run package && npm run minify"
     },
     "dependencies": {

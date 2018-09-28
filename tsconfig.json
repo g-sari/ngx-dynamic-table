@@ -8,7 +8,7 @@
     "noImplicitAny": true,
     "module": "esnext",
     "moduleResolution": "node",
-    "rootDir": ".",
+    "rootDir": "./src",
     "outDir": "dist",
     "sourceMap": true,
     "inlineSources": true,

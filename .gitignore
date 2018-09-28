@@ -5,10 +5,12 @@
 bower_components
 node_modules
 build
-dist/bundles
-dist/node_modules
-dist/src
 etc
+dist/*
+!dist/README.md
+!dist/package.json
+!dist/CHANGELOG.md
+!dist/CONTRIBUTING.md
 
 .rpt2_cache
 .idea

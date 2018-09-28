@@ -1,3 +1,6 @@
+# 0.1.8
+- enhanced generated file folder structure
+
 # 0.1.7
 - added declaration file for module
 
