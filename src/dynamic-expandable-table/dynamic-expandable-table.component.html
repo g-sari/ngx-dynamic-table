@@ -1,0 +1,33 @@
+<div class="pal-expandable-table-container">
+
+    <div class="pal-table-header" *ngIf="showFilter">
+        <mat-form-field class="pal-table-filter">
+            <input matInput (keyup)="applyFilter($event.target.value)" value="{{filterHint}}" (click)="onFilterEnter()"
+                (blur)="onFilterLeave()">
+        </mat-form-field>
+    </div>
+
+    <!-- EXPANDABLE TABLE WITH GROUPS -->
+    <div class="pal-expandable-table-grouped-container" *ngIf="tableOptions != null && tableOptions.length > 0">
+        <div class="pal-expandable-table-grouped" *ngFor="let tableOption of tableOptions; let tableIndex = index;">
+            <mat-toolbar class="pal-expandable-table-grouped-toolbar">{{tableOption.groupName}} </mat-toolbar>
+            <expandable-table-instance [palTableContainer]="tableIndex" [hideColumns]="tableOption.hideColumns"
+                [hideColumnsOfExpandedItems]="tableOption.hideColumnsOfExpandedItems"
+                [hideColumnsOfExpandedItemDetails]="tableOption.hideColumnsOfExpandedItemDetails" [groupIndex]="tableIndex"
+                [groupName]="tableOption.groupName" [groupExpressions]="tableOption.groupExpressions" [itemRowColor]="tableOption.groupItemRowColor"
+                [columnOptions]="tableOption.columnOptions" [actionsSubject]="actionsSubject" [mouseEventsSubject]="mouseEventsSubject"></expandable-table-instance>
+        </div>
+    </div>
+
+    <!-- EXPANDABLE TABLE ONLY -->
+    <expandable-table-instance *ngIf="tableOptions == null || tableOptions.length == 0" [hideColumns]="true"
+        [hideColumnsOfExpandedItems]="true" [hideColumnsOfExpandedItemDetails]="true" [groupName]="null"
+        [groupExpressions]="null" [itemRowColor]="null" [columnOptions]="null" [actionsSubject]="actionsSubject"
+        [mouseEventsSubject]="mouseEventsSubject"></expandable-table-instance>
+
+
+
+
+
+
+</div>

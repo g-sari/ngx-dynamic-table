@@ -1,0 +1,41 @@
+{
+    "name": "ngx-dynamic-table",
+    "description": "Create fancy complex tables dynamically.",
+    "version": "0.1.0",
+    "author": "Gökhan Sari",
+    "license": "MIT License",
+    "private": false,
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/g-sari/ngx-dynamic-table.git"
+    },
+    "scripts": {
+        "docs": "node_modules/.bin/compodoc -p tsconfig.json -d documentation --theme original --hideGenerator",
+        "transpile": "ngc",
+        "package": "rollup -c",
+        "minify": "uglifyjs dist/bundles/ngx-dynamic-table.umd.js --screw-ie8 --compress --mangle --comments --output dist/bundles/ngx-dynamic-table.umd.min.js",
+        "build": "npm run docs && npm run transpile && npm run package && npm run minify"
+    },
+    "dependencies": {
+        "@angular/core": "6.1.4",
+        "@angular/common": "6.1.4",
+        "@angular/forms": "6.1.4",
+        "@angular/platform-browser": "6.1.4",
+        "@angular/animations": "6.1.4",
+        "@angular/material": "6.4.6",
+        "@angular/flex-layout": "6.0.0-beta.16",
+        "rxjs": "6.2.2",
+        "lodash": "4.17.10"
+    },
+    "devDependencies": {
+        "@angular/cli": "6.1.4",
+        "@angular/cdk": "6.4.6",
+        "@angular/compiler": "6.1.4",
+        "@angular/compiler-cli": "6.1.4",
+        "@compodoc/compodoc": "^1.1.5",
+        "@types/lodash": "4.14.116",
+        "rollup": "0.58.2",
+        "typescript": "2.7.2",
+        "uglify-js": "3.3.23"
+    }
+}

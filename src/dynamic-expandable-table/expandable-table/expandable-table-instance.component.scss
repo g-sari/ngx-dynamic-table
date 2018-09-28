@@ -1,0 +1,120 @@
+@import '../../dynamic-table/table/table-instance.component.scss';
+
+$mat-cell-height: 90px;
+
+.table-item-row {
+    min-height: 80px;
+    height: 80px;
+}
+
+.example-element-detail {
+    display: flex;
+    align-items: flex-start;
+    overflow: hidden;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.expanded-table {
+    margin: 0px;
+    overflow: auto;
+    height: 100%;
+    width: 100%;
+}
+
+.mat-row {
+    min-height: $mat-cell-height !important;
+    padding: 0 0px !important;
+}
+
+.mat-cell {
+    min-height: $mat-cell-height !important;
+}
+
+.expanded-container {
+    width: 100%;
+}
+
+.expanded-item-header-row {
+    min-height: 40px;
+    height: 40px;
+    max-height: 40px;
+}
+
+.expanded-item-row {
+    padding: 0px;
+    font-size: 14px !important;
+    font-weight: 300;
+    line-height: 16px;
+}
+
+.expanded-item-header-column {
+    @extend .flex-column;
+    justify-content: center;
+    font-size: 0.8vw;
+    font-weight: 500;
+    border-right: 1px solid #ffffff;
+}
+
+.expanded-item-detail-header-column {
+    @extend .expanded-item-header-column;
+}
+
+.expanded-item-column {
+    border-right: 1px solid #ffffff;
+}
+
+.expanded-item-detail-column {
+    border-right: 1px solid #D0D0D0;
+}
+
+.expandable-row-icon {
+    color: #FFFFFF;
+    width: 40px;
+    height: 40px;
+    font-size: 40px;
+}
+
+.expanded-item-expand-row-icon {
+    color: #FFFFFF;
+    width: 28px;
+    height: 28px;
+    font-size: 28px;
+}
+
+.expanded-item-collapse-row-icon {
+    color: #FFFFFF;
+    width: 38px;
+    height: 38px;
+    font-size: 38px;
+}
+
+mat-footer-row::after,
+mat-header-row::after,
+mat-row::after {
+    min-height: 0px;
+}
+
+.pal-table-loading-shade {
+    position: relative !important;
+}
+
+.loading-shade-container {
+    margin: 20px;
+}
+
+.loading-message {
+    font-size: 12px;
+    font-weight: 400;
+}
+
+mat-cell:first-child {
+    padding-left: 0px !important;
+}
+
+.expanded-item-detail-column-expanded-row {
+    color: #494949;
+    width: 32px;
+    height: 32px;
+    font-size: 32px;
+}
