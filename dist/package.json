@@ -1,9 +1,9 @@
 {
   "name": "ngx-dynamic-material-table",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "Create fancy complex tables dynamically.",
-  "main": "index",
-  "typings": "index",
+  "main": "bundles/index",
+  "typings": "bundles/index",
   "module": "index.js",
   "keywords": [
     "angular",

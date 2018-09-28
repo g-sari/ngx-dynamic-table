@@ -1,3 +1,6 @@
+# 0.1.9
+- further enhancements on generated folder structure
+
 # 0.1.8
 - enhanced generated file folder structure
 

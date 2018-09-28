@@ -4,8 +4,8 @@ import nodeResolve from 'rollup-plugin-node-resolve';
 import scss from 'rollup-plugin-scss'
 
 export default {
-  entry: 'src/index.ts',
-  dest: 'dist/ngx-dynamic-table.umd.js',
+  entry: 'index.ts',
+  dest: 'dist/bundles/ngx-dynamic-table.umd.js',
   format: 'umd',
   moduleName: 'ngx-dynamic-table.module',
   external: [
@@ -30,7 +30,7 @@ export default {
       output: true,
 
       // Filename to write all styles to
-      output: 'dist/dynamic-table-styles.scss',
+      output: 'dist/bundles/dynamic-table-styles.scss',
 
       // Determine if node process should be terminated on error (default: false)
       failOnError: true,

@@ -6,11 +6,11 @@ bower_components
 node_modules
 build
 etc
-dist/*
-!dist/README.md
-!dist/package.json
-!dist/CHANGELOG.md
-!dist/CONTRIBUTING.md
+dist/bundles
+dist/src
+dist/index.d.ts
+dist/index.js
+dist/index.js.map
 
 .rpt2_cache
 .idea
