@@ -6,7 +6,7 @@
     "experimentalDecorators": true,
     "strictNullChecks": false,
     "noImplicitAny": true,
-    "module": "es2015",
+    "module": "esnext",
     "moduleResolution": "node",
     "rootDir": ".",
     "outDir": "dist",
