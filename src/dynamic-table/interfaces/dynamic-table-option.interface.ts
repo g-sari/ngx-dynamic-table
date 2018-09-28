@@ -1,4 +1,3 @@
-import { DynamicTableGroupInterface } from './dynamic-table-group.interface';
 import { DynamicTableGroupExpressionInterface } from './dynamic-table-group-expression.interface';
 import { DynamicTableColumnInterace } from './dynamic-table-column.interface';
 

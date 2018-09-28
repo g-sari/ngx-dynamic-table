@@ -14,7 +14,7 @@ export default {
     angular({
       replace: false, // additional replace `templateUrl` and `stylesUrls` in every `.js` file
     }),
-    typescript(),
+    typescript({lib: ["es5", "es6", "dom"], target: "es5"}),
     scss({
       //Choose *one* of these possible "output:..." options
       // Default behaviour is to write all styles to the bundle destination where .js is replaced by .css
