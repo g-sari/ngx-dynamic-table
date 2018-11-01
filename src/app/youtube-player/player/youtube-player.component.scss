@@ -1,0 +1,28 @@
+$playerHeight: 45vh;
+
+.embed-container {
+  position: relative;
+  height: 0;
+}
+
+.embed-container iframe {
+  width: 100%;
+  height: $playerHeight;
+}
+
+.comments {
+  height: calc(80vh - 64px); // minus toolbar
+}
+
+.comment {
+  margin: 5px;
+}
+
+.comment-title {
+  font-weight: 700;
+}
+
+.video-description {
+  height: calc(#{$playerHeight} - 5vh);
+  overflow: scroll;
+}

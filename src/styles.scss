@@ -1,0 +1,47 @@
+/* You can add global styles to this file, and also import other style files */
+$Angular2AssetsFonts: "assets/ui/fonts/";
+
+html {
+  overflow-y: hidden
+}
+
+body {
+  height: 100vh;
+  overflow-y: hidden;
+}
+
+// MATERIAL THEMING
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
+// MATERIAL ICONS
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url($Angular2AssetsFonts + '/material-icons/MaterialIcons-Regular.eot');
+  /* For IE6-8 */
+  src: local('Material Icons'), local('MaterialIcons-Regular'), url($Angular2AssetsFonts + '/material-icons/MaterialIcons-Regular.woff2') format('woff2'), url($Angular2AssetsFonts + '/material-icons/MaterialIcons-Regular.woff') format('woff'), url($Angular2AssetsFonts + '/material-icons/MaterialIcons-Regular.ttf') format('truetype');
+}
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+  /* Support for all WebKit browsers. */
+  text-rendering: optimizeLegibility;
+  /* Support for Safari and Chrome. */
+  -moz-osx-font-smoothing: grayscale;
+  /* Support for Firefox. */
+  font-feature-settings: 'liga';
+  /* Support for IE. */
+}

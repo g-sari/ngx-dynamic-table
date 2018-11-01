@@ -1,0 +1,116 @@
+<!--
+<div fxLayout="row" fxLayoutAlign="space-around start">
+  <div fxFlex class="embed-container">
+    <iframe *ngIf="video" width="90%" height="80%" frameborder="0" allowfullscreen [src]="video?.videoId | youtubeSafeUrl"></iframe>
+  </div>
+  <div fxFlex>
+    <mat-card *ngIf="video">
+      <mat-card-header>
+        <img md-card-avatar [src]="video.thumbnailUrlMedium">
+        <mat-card-title>{{video.title}}</mat-card-title>
+        <mat-card-subtitle>{{video.description}}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p>
+          Views: {{video.statisticViewCount}} | Duration: {{video.duration}}
+        </p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+</div>
+
+-->
+<div fxLayout="column" fxLayoutAlign="space-around stretch" fxLayoutGap="10">
+  <!-- VIDEO PLAYER-->
+  <div fxLayout="row" fxLayoutAlign="space-around start" fxLayoutGap="10">
+    <div fxFlex="70">
+      <div class="embed-container">
+        <iframe *ngIf="video" width="90%" height="100%" frameborder="0" allowfullscreen [src]="video?.videoId | youtubeSafeUrl"></iframe>
+      </div>
+    </div>
+    <div fxFlex="30">
+      <mat-card *ngIf="video" class="video-description">
+        <mat-card-header>
+          <img mat-card-avatar [src]="video.thumbnailUrlMedium">
+          <mat-card-title>{{video.title}}</mat-card-title>
+          <mat-card-subtitle>Views: {{video.statisticViewCount}} | Duration: {{video.duration}}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          {{video.description}}
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+  <!-- COMMENTS TABLE -->
+  <div>
+    <mat-toolbar>Comments</mat-toolbar>
+    <div fxLayout="column" fxLayoutAlign="space-around stretch">
+      <div class="comments">
+        <mat-card *ngFor="let comment of comments" class="comment">
+          <mat-card-header>
+            <img mat-card-avatar [src]="comment.authorProfileImageUrl">
+            <mat-card-title class="comment-title">{{comment.authorDisplayName}}</mat-card-title>
+            <mat-card-subtitle>Likes: {{comment.likeCount}}</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <div [innerHTML]="comment.textDisplay"></div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!--
+<div fxLayout="row" fxFlex="100" fxLayoutAlign="stretch" class="content">
+  <div fxLayout="column" fxFlex="100" fxLayoutAlign="start stretch">
+    <div fxLayout="column" fxFlex="70">
+      <div fxLayout="row" fxFlex="100">
+        <div fxLayout="row" fxFlex="65" fxLayoutAlign="start start" class="embed-container">
+          <div fxLayout="column" fxFlex="100" fxLayoutAlign="start stretch">
+            <div *ngIf="video">
+              <iframe *ngIf="video" width="90%" height="80%" frameborder="0" allowfullscreen [src]="video?.videoId | youtubeSafeUrl"></iframe>
+            </div>
+          </div>
+        </div>
+        <div fxLayout="row" fxFlex="35" fxLayoutAlign="start start">
+          <div fxLayout="column" fxFlex="100" fxLayoutAlign="space-around stretch">
+            <mat-card *ngIf="video">
+              <mat-card-header>
+                <img mat-card-avatar [src]="video.thumbnailUrlMedium">
+                <mat-card-title>{{video.title}}</mat-card-title>
+                <mat-card-subtitle>{{video.description}}</mat-card-subtitle>
+              </mat-card-header>
+              <mat-card-content>
+                <p>
+                  Views: {{video.statisticViewCount}} | Duration: {{video.duration}}
+                </p>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div fxLayout="column" fxFlex="30" fxLayoutAlign="start stretch">
+      <mat-toolbar>Comments</mat-toolbar>
+      <div class="comments">
+        <mat-card *ngFor="let comment of comments" class="comment">
+          <mat-card-header>
+            <img mat-card-avatar [src]="comment.authorProfileImageUrl">
+            <mat-card-title class="comment-title">{{comment.authorDisplayName}}</mat-card-title>
+            <mat-card-subtitle>Likes: {{comment.likeCount}}</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <div [innerHTML]="comment.textDisplay"></div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+    </div>
+  </div>
+</div>
+-->
