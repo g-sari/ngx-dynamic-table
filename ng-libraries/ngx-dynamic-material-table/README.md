@@ -1,7 +1,8 @@
 # ngx-dynamic-material-table
 ## Create fancy and complex tables dynamically and very rapidly.
 
-##### Table of Contents  
+##### Table of Contents
+[Demo](#Demo)  
 [What is it?](#What)  
 [Features](#Features)  
 [Installation](#Installation)  
@@ -9,6 +10,9 @@
 [Tutorials](#Tutorials)  
 [Development](#Development)
 
+<a name="Demo"></a>
+## Online Demo
+https://g-sari.github.io/ngx-dynamic-table/
 
 <a name="What"></a>
 ## What is it?
@@ -1012,6 +1016,9 @@ dest *	string	Destination file when bundling is done.
 
 # Changelog
 > Below you can find the list of changelogs.
+
+# 0.2.7
+- Added demo page
 
 # 0.2.6
 - Fixed several design issues (flex layout)
