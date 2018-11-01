@@ -1,14 +1,17 @@
 # ngx-dynamic-material-table
-## Create fancy and complex tables dynamically and very rapidly.
+> Create fancy and complex tables 
+dynamically and very rapidly.
 
-##### Table of Contents
-[Demo](#Demo)  
-[What is it?](#What)  
-[Features](#Features)  
-[Installation](#Installation)  
-[Setup](#Setup)  
-[Tutorials](#Tutorials)  
-[Development](#Development)
+![header](header.png)
+
+## Table of Contents
+[1. Demo](#Demo)  
+[2. What is it?](#What)  
+[3. Features](#Features)  
+[4. Installation](#Installation)  
+[5. Setup](#Setup)  
+[6. Tutorials](#Tutorials)  
+[7. Development](#Development)
 
 <a name="Demo"></a>
 ## Online Demo 
@@ -559,8 +562,12 @@ export class DrugsExpandableTableDataProvider extends AbstractDynamicExpandableT
 }
 ```
 
-* As you can see all groups are created inside of the table options and the logic how to group the data is defined there as well. i.e. in the first group we want to group all approved drugs, so we defined the following group expression: Group by the property 'approval' and it's {'operator': '==', 'value': DrugApprovalConstants.PENDING }
+* All groups are created inside of the table options and the logic how to group the data is defined there as well. i.e. in the first group we want to group all approved drugs, so we defined the following group expression: Group by the property 'approval' and it's {'operator': '==', 'value': DrugApprovalConstants.PENDING }
 * Notice that we defined different column background colors for expanded rows and additional in the table options individual cell background colors can also be defined.
+
+![columns-mapping](columns-mapping.png)
+
+* As you can see in the picture above the predefined column “ADDITIONAL_INFO” is used to show the user icon, “HTML_CONTENT_SUMMARY” is used to display the name of the drug etc...
 6. Go to your module where your drugs list component is declared, and define the DrugsExpandableTableDataProvider like in the code below, see especially the providers[] section:
 
 ```typescript
@@ -1016,6 +1023,9 @@ dest *	string	Destination file when bundling is done.
 
 # Changelog
 > Below you can find the list of changelogs.
+
+# 0.2.8
+- Enhanced the documentation
 
 # 0.2.7
 - Added demo page

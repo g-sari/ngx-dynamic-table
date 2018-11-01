@@ -1,7 +1,7 @@
 {
   "name": "ngx-dynamic-material-table",
   "description": "Create fancy and complex tables dynamically.",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "author": "Gökhan Sari",
   "license": "MIT",
   "private": false,
