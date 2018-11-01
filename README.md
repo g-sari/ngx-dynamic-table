@@ -11,8 +11,8 @@
 [Development](#Development)
 
 <a name="Demo"></a>
-## Online Demo
-https://g-sari.github.io/ngx-dynamic-table/
+## Online Demo 
+> :white_check_mark: https://g-sari.github.io/ngx-dynamic-table/
 
 <a name="What"></a>
 ## What is it?
