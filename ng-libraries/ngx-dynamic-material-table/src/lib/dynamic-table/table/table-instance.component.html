@@ -1,0 +1,112 @@
+<div class="pal-table-loading-shade" *ngIf="isLoadingResults || noDataFound">
+  <div fxLayout="column" fxLayoutAlign="space-around center" *ngIf="isLoadingResults">
+    <mat-spinner mode="indeterminate" color="primary" [diameter]="80" [strokeWidth]="2"></mat-spinner>
+    <!-- <mat-progress-bar mode="buffer" color="accent"></mat-progress-bar> -->
+    <span>wird geladen...</span>
+  </div>
+  <div fxLayout="column" fxLayoutAlign="space-around center" class="pal-table-message" *ngIf="noDataFound">
+    <mat-icon svgIcon="no-data-found" class="no-data-found-icon"></mat-icon>
+    <span class="no-data-found-text">No data found!</span>
+  </div>
+</div>
+
+
+<mat-table class="pal-table" #table [dataSource]="dataSource" matSort
+  matSortActive="title" matSortDirection="asc" class="def-animated">
+
+  <!-- Selected Row Column -->
+  <ng-container matColumnDef="selectedRowColumn">
+    <mat-header-cell *matHeaderCellDef mat-sort-header class="selected-row-column"></mat-header-cell>
+    <mat-cell *matCellDef="let rowIndex = index;" class="selected-row-column">
+      <mat-icon class="selected-row-icon" *ngIf="currentSelectedRowIndex == rowIndex">lens</mat-icon>
+    </mat-cell>
+  </ng-container>
+
+  <!-- <ng-template [palDynamicTableColumnsContainer]></ng-template> -->
+
+  <!-- Position Column -->
+  <ng-container matColumnDef="{{COLUMN_DEFINITIONS.INDICATOR_COLOR}}" *ngIf="isColumnDefined(COLUMN_DEFINITIONS.INDICATOR_COLOR)">
+    <mat-header-cell *matHeaderCellDef mat-sort-header class="color-column">
+      {{getColumnName(COLUMN_DEFINITIONS.INDICATOR_COLOR)}}
+    </mat-header-cell>
+    <mat-cell *matCellDef="let item; let i = index;" class="color-column" [style.background]="getIndicatorColor(item, i)">
+      {{(i+1)}} {{getIndicatorSign(item, i)}} </mat-cell>
+  </ng-container>
+
+  <!-- Icon column -->
+  <ng-container matColumnDef="{{COLUMN_DEFINITIONS.HTML_ICON}}" *ngIf="isColumnDefined(COLUMN_DEFINITIONS.HTML_ICON)">
+    <mat-header-cell *matHeaderCellDef class="icon-column">{{getColumnName(COLUMN_DEFINITIONS.HTML_ICON)}}</mat-header-cell>
+    <mat-cell *matCellDef="let item; let i = index;" class="icon-column" [style.background]="getColumnColor(COLUMN_DEFINITIONS.HTML_ICON)">
+      {{getHTMLIcon(item, i)}}
+      <ng-template [palTableIconContainer]="i"></ng-template>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Title Column -->
+  <ng-container matColumnDef="{{COLUMN_DEFINITIONS.TITLE}}" *ngIf="isColumnDefined(COLUMN_DEFINITIONS.TITLE)">
+    <mat-header-cell *matHeaderCellDef mat-sort-header class="title-column">
+      {{getColumnName(COLUMN_DEFINITIONS.TITLE)}}
+    </mat-header-cell>
+    <mat-cell *matCellDef="let item; let i = index;" class="title-column" [style.background]="getColumnColor(COLUMN_DEFINITIONS.TITLE)">
+      {{getTitle(item, i)}}
+      <ng-template [palTableTitleContainer]="i"></ng-template>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Description column -->
+  <ng-container matColumnDef="{{COLUMN_DEFINITIONS.DESCRIPTION}}" *ngIf="isColumnDefined(COLUMN_DEFINITIONS.DESCRIPTION)">
+    <mat-header-cell *matHeaderCellDef class="description-column" mat-sort-header>
+      {{getColumnName(COLUMN_DEFINITIONS.DESCRIPTION)}}
+    </mat-header-cell>
+    <mat-cell *matCellDef="let item; let i = index;" class="description-column" [style.background]="getColumnColor(COLUMN_DEFINITIONS.DESCRIPTION)">
+      {{getDescription(item, i)}}
+      <ng-template [palTableDescriptionContainer]="i"></ng-template>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Additional info column -->
+  <ng-container matColumnDef="{{COLUMN_DEFINITIONS.ADDITIONAL_INFO}}" *ngIf="isColumnDefined(COLUMN_DEFINITIONS.ADDITIONAL_INFO)">
+    <mat-header-cell *matHeaderCellDef class="additional-info-column" mat-sort-header>{{getColumnName(COLUMN_DEFINITIONS.ADDITIONAL_INFO)}}</mat-header-cell>
+    <mat-cell *matCellDef="let item; let i = index;" class="additional-info-column" fxLayout="row" fxLayoutAlign="space-around center"
+      [style.background]="getColumnColor(COLUMN_DEFINITIONS.ADDITIONAL_INFO)">
+      {{getAdditionalInfo(item, i)}}
+      <ng-template [palTableAdditionalInfoContainer]="i"></ng-template>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Other Text Based Column -->
+  <ng-container matColumnDef="{{COLUMN_DEFINITIONS.OTHER_TEXT_BASED1}}" *ngIf="isColumnDefined(COLUMN_DEFINITIONS.OTHER_TEXT_BASED1)">
+    <mat-header-cell *matHeaderCellDef mat-sort-header class="other-text-based-column">{{getColumnName(COLUMN_DEFINITIONS.OTHER_TEXT_BASED1)}}</mat-header-cell>
+    <mat-cell *matCellDef="let item; let rowIndex = index;" class="other-text-based-column" [style.background]="getColumnColor(COLUMN_DEFINITIONS.OTHER_TEXT_BASED1)">{{getOtherTextBased(item,
+      rowIndex)}}</mat-cell>
+  </ng-container>
+
+  <!-- Content summary column -->
+  <ng-container matColumnDef="{{COLUMN_DEFINITIONS.HTML_CONTENT_SUMMARY}}" *ngIf="isColumnDefined(COLUMN_DEFINITIONS.HTML_CONTENT_SUMMARY)">
+    <mat-header-cell *matHeaderCellDef class="html-content-summary-column" mat-sort-header>
+      {{getColumnName(COLUMN_DEFINITIONS.HTML_CONTENT_SUMMARY)}}</mat-header-cell>
+    <mat-cell *matCellDef="let item; let i = index;" class="html-content-summary-column" fxLayout="row" fxLayoutAlign="space-around center"
+      [style.background]="getColumnColor(COLUMN_DEFINITIONS.HTML_CONTENT_SUMMARY)">
+      {{getHTMLContentSummary(item, i)}}
+      <ng-template [palTableContentSummaryContainer]="i"></ng-template>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Actions column -->
+  <ng-container matColumnDef="{{COLUMN_DEFINITIONS.HTML_ACTIONS}}" *ngIf="isColumnDefined(COLUMN_DEFINITIONS.HTML_ACTIONS)">
+    <mat-header-cell *matHeaderCellDef class="actions-column">{{getColumnName(COLUMN_DEFINITIONS.HTML_ACTIONS)}}</mat-header-cell>
+    <mat-cell *matCellDef="let item; let i = index;" class="actions-column" [style.background]="getColumnColor(COLUMN_DEFINITIONS.HTML_ACTIONS)">
+      <div fxLayout="row" fxLayoutAlign="space-around center">
+        {{getHTMLAction(item, i)}}
+        <ng-template [palTableActionsContainer]="i"></ng-template>
+      </div>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="let columnIndex = index;displayedColumns" [ngClass]="{'no-header-columns': hideColumns}"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns; let rowIndex = index;" (click)="selectItem(rowIndex)"
+    [style.background]="getItemRowColor()" [class.mat-elevation-z1]="currentSelectedRowIndex == rowIndex" [ngClass]="{'current-selected-row': currentSelectedRowIndex == rowIndex}"></mat-row>
+
+
+</mat-table>
+<!-- <mat-paginator [length]="resultsLength" [pageSize]="30"></mat-paginator> -->

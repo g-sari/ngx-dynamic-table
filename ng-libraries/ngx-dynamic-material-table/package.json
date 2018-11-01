@@ -1,0 +1,54 @@
+{
+  "name": "ngx-dynamic-material-table",
+  "description": "Create fancy and complex tables dynamically.",
+  "version": "0.2.6",
+  "author": "Gökhan Sari",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "build": "bundle-styles",
+    "bundle-styles": "scss-bundle -c scss-bundle.config.json",
+    "docs": "../../node_modules/.bin/compodoc -c .compodocrc.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/g-sari/ngx-dynamic-table.git"
+  },
+  "homepage": "https://github.com/g-sari/ngx-dynamic-table",
+  "bugs": {
+    "url": "https://github.com/g-sari/ngx-dynamic-table/issues"
+  },
+  "keywords": [
+    "angular",
+    "angular 2",
+    "angular 4",
+    "angular 5",
+    "angular 6",
+    "data table",
+    "table",
+    "typescript",
+    "dynamic table",
+    "material table",
+    "angular dynamic table",
+    "angular table",
+    "angular2",
+    "angular4",
+    "angular5",
+    "angular6"
+  ],
+  "peerDependencies": {
+    "@angular/animations": ">=6.1.9",
+    "@angular/common": ">=6.1.9",
+    "@angular/compiler": ">=6.1.9",
+    "@angular/core": ">=6.1.9",
+    "@angular/forms": ">=6.1.9",
+    "@angular/http": ">=6.1.9",
+    "@angular/platform-browser": ">=6.1.9",
+    "@angular/platform-browser-dynamic": ">=6.1.9",
+    "@angular/material": ">=6.4.7",
+    "@angular/router": ">=6.1.9",
+    "core-js": ">=2.5.7",
+    "rxjs": ">=6.3.3",
+    "zone.js": ">=0.8.26"
+  }
+}

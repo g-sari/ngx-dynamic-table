@@ -1,0 +1,1131 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>NGX DYNAMIC MATERIAL TABLE</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
+	      <link rel="stylesheet" href="./styles/style.css">
+        <link rel="stylesheet" href="./styles/original.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="./" class="navbar-brand">NGX DYNAMIC MATERIAL TABLE</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search">
+</div>
+            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content getting-started">
+                   <div class="content-data">
+
+<h1 id="ngx-dynamic-material-table">ngx-dynamic-material-table</h1>
+<h2 id="create-fancy-and-complex-tables-dynamically-and-very-rapidly-">Create fancy and complex tables dynamically and very rapidly.</h2>
+<h5 id="table-of-contents">Table of Contents</h5>
+<p><a href="#What">What is it?</a><br><a href="#Features">Features</a><br><a href="#Installation">Installation</a><br><a href="#Setup">Setup</a><br><a href="#Tutorials">Tutorials</a><br><a href="#Development">Development</a></p>
+<p><a name="What"></a></p>
+<h2 id="what-is-it-">What is it?</h2>
+<ul>
+<li><strong>Why:</strong> The table is a core element, and used almost on every page to display a list of data, which means without having a library or widget, you will have multiple tables and duplicate implementations. Actually the table functionalities are always the same, it defers only in design and content.</li>
+<li><strong>Problem:</strong> If you have ever used the angular material table, you already faced to the problem, that only strings can be displayed dynamically inside of a cell. Of course you can add a component inside of your template, but this component will be displayed for each row, which means you will always see the same component in the cell for each data row. In other words it&#39;s not possible to display different components for each data row in a cell. </li>
+<li><strong>Solution:</strong> With the dynamic material table, it&#39;s now very easy to create complex dynamic tables.</li>
+</ul>
+<p><img src="ngx-dynamic-table-workflow.png" alt="ngx-dynamic-table-workflow" class="img-responsive"></p>
+<p><a name="Features"></a></p>
+<h2 id="features">Features</h2>
+<ul>
+<li>Add dynamically rendered components/html to the cells for each data row.</li>
+<li>Expandable rows up to 3 levels.</li>
+<li>Define column names and customized column ids.</li>
+<li>Pass data as an array into the table.</li>
+<li>8 predefined common cells/columns, which can be overriden.</li>
+<li>Automatically group data by the given groups.</li>
+<li>Possibility to define table options for each defined group.</li>
+<li>Events based communication with the host component.</li>
+<li>Customize table style by overriding predefined/generated css classes.</li>
+</ul>
+<p><a name="Installation"></a></p>
+<h2 id="installation">Installation</h2>
+<div><pre class="line-numbers"><code class="language-javascript">npm install ngx-dynamic-material-table --save</code></pre></div><p><a name="Setup"></a></p>
+<h2 id="setup">Setup</h2>
+<p>Import <strong>DynamicTableModule</strong> and <strong>forRoot()</strong> to your module as shown below, where you want to use the table.</p>
+<div><pre class="line-numbers"><code class="language-typescript">import { NgModule } from &#39;&#64;angular/core&#39;;
+import { DynamicTableModule, DynamicTableDataProvider } from &#39;ngx-dynamic-material-table&#39;;
+
+&#64;NgModule({
+    imports: [
+        DynamicTableModule,
+        DynamicTableModule.forRoot()
+    ],
+    declarations: [],
+})
+export class YourModule { }</code></pre></div><h2 id="tutorials">Tutorials</h2>
+<p>Follow the tutorials below to learn how to use the dynamic table in your project.</p>
+<blockquote>
+<p>Dynamic table
+<br/>(simple basic table example)</p>
+</blockquote>
+<p>In our example we are going to create a table, where we can display a list of persons, with some actions, icons and some additional data, see the picture below:</p>
+<p><img src="https://media.giphy.com/media/2YdkwzMejaSdxJfq1I/giphy.gif" alt="dynamic-table-basic-example" class="img-responsive"></p>
+<ol>
+<li>Create a new angular component i.e. <strong>PersonsListComponent</strong> or if you already have created a component, go to your component folder. Example component code:</li>
+</ol>
+<div><pre class="line-numbers"><code class="language-typescript">&#64;Component({
+    selector: &#39;persons-list-component&#39;,
+    templateUrl: &#39;./persons-list.component.html&#39;,
+    styleUrls: [&#39;./persons-list.component.scss&#39;]
+})
+export class PersonsListComponent {
+    // your component&#39;s logic
+}</code></pre></div><ol start="2">
+<li>Create inside the folder a new injectable angular service i.e in our example we&#39;re going to name it <strong>persons-list-data-provider.ts</strong>.</li>
+<li>Extend your created data provider service by the class <strong>AbstractDynamicTableDataProvider&lt; T &gt;</strong>.</li>
+<li>Change the generic &lt; T &gt; to your data type, you&#39;re using in your data array i.e. &lt; PersonModel &gt; or a general &lt; Object &gt;.</li>
+<li>Implement all inherited abstract functions from AbstractDynamicTableDataProvider i.e. see the code below for an example and descriptions:</li>
+<li>At the end our example persons list data provider should look like in the code below:</li>
+</ol>
+<div><pre class="line-numbers"><code class="language-typescript">import { Injectable } from &#39;&#64;angular/core&#39;;
+import { Observable } from &#39;rxjs&#39;;
+import {
+    DynamicTableOptionInterface,
+    DynamicTableColumnDefinitionConstants,
+    DynamicTableColumnInterace,
+    AbstractDynamicTableDataProvider,
+    DynamicTableUIUtils
+} from &#39;ngx-dynamic-material-table&#39;;
+
+&#64;Injectable()
+export class PersonsListDataProvider extends AbstractDynamicTableDataProvider&lt;Object&gt; {
+
+    public static readonly ACTION_SELECT_PATIENT = &#39;selectPatient&#39;;
+    public static readonly ACTION_DEACTIVATE_PATIENT = &#39;deactivatePatient&#39;;
+    public static readonly ACTION_SHOW_PATIENT_COLORS = &#39;showPatientColors&#39;;
+
+    constructor(private colorsHelperService: ColorsHelperService, private personAPIService: PersonAPIService) { super(); }
+
+     // Defines and gets the columns displayed in the persons list table.
+    getColumns(): DynamicTableColumnInterace[] {
+        const columns = [
+            { columns: [DynamicTableColumnDefinitionConstants.HTML_ICON], names: [&#39;Icon&#39;], backgroundColor: null },
+            { columns: [DynamicTableColumnDefinitionConstants.TITLE], names: [&#39;Person name&#39;], backgroundColor: null },
+            { columns: [DynamicTableColumnDefinitionConstants.HTML_CONTENT_SUMMARY], names: [&#39;Colors&#39;], backgroundColor: null },
+            { columns: [DynamicTableColumnDefinitionConstants.HTML_ACTIONS], names: [&#39;Actions&#39;], backgroundColor: null }
+        ];
+        return columns;
+    }
+
+    // Retrieves the persons data displayed as row items inside of the table.
+    getData(sort: string, order: string, page: number): Observable&lt;Object[]&gt; {
+        return this.personAPIService.loadPatients();
+    }
+
+    // Retrieves the icon displayed for each person item.
+    getHTMLIcon(item: Object, rowIndex: number, groupIndex: number, groupName: string): string {
+        return &#39;&lt;mat-icon class=&quot;icon-large icon-color-grey&quot;&gt;person&lt;mat-icon&gt;&#39;;
+    }
+
+    // Retrieves the first and lastname for each person item.
+    getTitle(item: Object, rowIndex: number, groupIndex: number, groupName: string): string {
+        return item[&#39;lastName&#39;] + &#39; &#39; + item[&#39;firstName&#39;];
+    }
+
+    // Retrieves assigned person colors as material fab buttons.
+    getHTMLContentSummary(item: Object, rowIndex: number, groupIndex: number, groupName: string): string {
+        const stringBuffer = new StringBuffer();
+        const flags = item[&#39;flags&#39;];
+        const splittedFlags = (flags != null &amp;&amp; flags !== &#39;&#39;) ? flags.split(&#39;,&#39;) : [];
+        for (const flagId of splittedFlags) {
+            const colorId = parseInt(flagId, 10);
+            const mappedColor: Color = this.colorsHelperService.getColor(colorId);
+            const orgColor: OrgColor = this.colorsHelperService.getOrgColorById(colorId);
+            const colorDescription = (orgColor !== null) ? orgColor[&#39;colorDesc&#39;] : &#39;N/A&#39;;
+            stringBuffer.append(
+                &#39;&lt;button mat-mini-fab matTooltip=&quot;&#39; + colorDescription + &#39;&quot; style=&quot;background-color:#&#39; + mappedColor.value + &#39;;&quot;&gt;&lt;/button&gt; &#39;
+            );
+        }
+        return stringBuffer.toString();
+    }
+
+    // Retrieves the actions for each person item in the table.
+    getHTMLAction(item: Object, rowIndex: number, groupIndex: number, groupName: string): string {
+        const stringBuffer = new StringBuffer();
+        // First action: Go to person details
+        stringBuffer.append(&#39;&lt;button mat-raised-button color=&quot;accent&quot; &#39;);
+        stringBuffer.append(&#39;(click)=&quot;&#39; + DynamicTableUIUtils.createHTMLAction(PersonsListDataProvider.ACTION_SELECT_PATIENT, item) + &#39;&quot;&gt;&#39;);
+        stringBuffer.append(&#39;&lt;mat-icon class=&quot;icon-medium&quot;&gt;play_arrow&lt;/mat-icon&gt;&#39;);
+        stringBuffer.append(&#39;&lt;/button&gt;&#39;);
+        stringBuffer.append(&#39; &#39;);
+        // Second action: Open colors dialog/modal
+        stringBuffer.append(&#39;&lt;button mat-raised-button color=&quot;primary&quot; &#39;);
+        stringBuffer.append(&#39;(click)=&quot;&#39; + DynamicTableUIUtils.createHTMLAction(PersonsListDataProvider.ACTION_SHOW_PATIENT_COLORS, item) + &#39;&quot;&gt;&#39;);
+        stringBuffer.append(&#39;&lt;mat-icon class=&quot;icon-medium&quot;&gt;palette&lt;/mat-icon&gt;&#39;);
+        stringBuffer.append(&#39;&lt;/button&gt;&#39;);
+        stringBuffer.append(&#39; &#39;);
+        // Third action: Deactivate/delete person
+        stringBuffer.append(&#39;&lt;button mat-raised-button color=&quot;warn&quot; &#39;);
+        stringBuffer.append(&#39;(click)=&quot;&#39; + DynamicTableUIUtils.createHTMLAction(PersonsListDataProvider.ACTION_DEACTIVATE_PATIENT, item) + &#39;&quot;&gt;&#39;);
+        stringBuffer.append(&#39;&lt;mat-icon class=&quot;icon-medium&quot;&gt;do_not_disturb&lt;/mat-icon&gt;&#39;);
+        stringBuffer.append(&#39;&lt;/button&gt;&#39;);
+        return stringBuffer.toString();
+    }
+
+    /////////////////////// Undefined columns/cells ///////////////////////
+
+    // Predefined column IndicatorColor: Retrieves the color for each data row/item, where i.e. an enumeration can be displayed like 1. row, 2. row, 3. row etc.
+    getIndicatorColor(item: Object, rowIndex: number, groupIndex: number, groupName: string): string {
+        return null;
+    }
+
+    // Predefined column IndicatorSign: Retrieves the sign for each data row/item, where i.e. an enumeration can be displayed. This sign could be i.e. a number or a letter.
+    getIndicatorSign(item: Object, rowIndex: number, groupIndex: number, groupName: string): string {
+        return null;
+    }
+
+    // Predefined column AdditionalInfo: Retrieves the additional info for each data row/item.
+    getAdditionalInfo(item: Object, rowIndex: number, groupIndex: number, groupName: string): string {
+        return null;
+    }
+
+    // Predefined column Description: Retrieves the description for each data row/item.
+    getDescription(item: Object, rowIndex: number, groupIndex: number, groupName: string): string {
+        return null;
+    }
+
+    // Predefined column OtherTextBased: Retrieves an other text based cell for each data row/item.
+    getOtherTextBased(item: Object, rowIndex: number, groupIndex: number, groupName: string): string {
+        return null;
+    }
+
+    // Retrieves table options incl. grouping of data. Return null, if you don&#39;t want to group data.
+    getOptions(): DynamicTableOptionInterface[] {
+        return null;
+    }
+}</code></pre></div><ul>
+<li>As you can see each predefined column can be overriden and the UI logic can be defined inside of the predefined columns.</li>
+<li>Our persons list is almost done, we now need to provide our PersonsListDataProvider as a data provider for our table.</li>
+<li>Go to your module where your component is declared, and define the PersonsListDataProvider like in the code below, see especially the providers[] section:</li>
+</ul>
+<div><pre class="line-numbers"><code class="language-typescript">import { NgModule } from &#39;&#64;angular/core&#39;;
+import { DynamicTableModule, DynamicTableDataProvider } from &#39;ngx-dynamic-material-table&#39;;
+
+&#64;NgModule({
+    imports: [
+        DynamicTableModule,
+        DynamicTableModule.forRoot()
+    ],
+    declarations: [
+        PersonsListComponent
+    ],
+    providers: [
+        PersonsListDataProvider,
+        { provide: DynamicTableDataProvider, useExisting: PersonsListDataProvider },
+    ],
+})
+export class YourModule { }</code></pre></div><ol start="7">
+<li>Finally add to your component html template in our case <strong>persons-list.component.html</strong> the following code snippet:</li>
+</ol>
+<div><pre class="line-numbers"><code class="language-html">&lt;dynamic-table&gt;&lt;/dynamic-table&gt;</code></pre></div><ul>
+<li>So we are done, our table is now ready to be displayed using our defined data provider.</li>
+<li>Handle actions: What should happen, when we click on an action inside of a row. Handling of actions belongs to the list component and not to the data provider, hence implement in your component i.e. in our example  <strong>PatientsListComponent</strong> the generic interface <strong>UsingDynamicTableComponent&lt; T &gt;</strong> like in the code below:</li>
+</ul>
+<div><pre class="line-numbers"><code class="language-typescript">import { Component, AfterViewInit } from &#39;&#64;angular/core&#39;;
+import { PatientListDataProvider } from &#39;./patient-list-data-provider&#39;;
+import { UsingDynamicTableComponent, DynamicTableActionMessageService } from &#39;ngx-dynamic-material-table&#39;;
+
+&#64;Component({
+    selector: &#39;persons-list-component&#39;,
+    templateUrl: &#39;./persons-list.component.html&#39;,
+    styleUrls: [&#39;./persons-list.component.scss&#39;]
+})
+export class PersonsListComponent implements AfterViewInit, UsingDynamicTableComponent&lt;Object&gt; { 
+
+    constructor(
+        private dynamicTableActionMessageService: DynamicTableActionMessageService&lt;object&gt;,
+        private patientListDataProvider: PatientListDataProvider,
+    ) {}
+
+    ngAfterViewInit() {
+        this.handleDynamicTableActions(this.dynamicTableActionMessageService.getPubisher());
+    }
+
+    // Handles actions published by the dynamic table
+    handleDynamicTableActions(publisher: Observable&lt;object&gt;): void {
+        publisher.subscribe(
+            (actionMessage: DynamicTableActionMessageService&lt;object&gt;) =&gt; {
+                switch (actionMessage.getAction()) {
+                    case PatientListDataProvider.ACTION_SELECT_PATIENT:
+                        this.selectPerson(actionMessage.getItem());
+                        break;
+                    case PatientListDataProvider.ACTION_DEACTIVATE_PATIENT:
+                        this.deactivatePerson(actionMessage.getItem());
+                        break;
+                    case PatientListDataProvider.ACTION_SHOW_PATIENT_COLORS:
+                        this.openPersonColorsDialog(actionMessage.getItem());
+                        break;
+                }
+            }
+        );
+    }
+
+}</code></pre></div><blockquote>
+<p>Dynamic expandable table
+<br/>(extended complex table example)</p>
+</blockquote>
+<p>In this example we are going to create a complex table, where we can display a list of prescribed drugs, with a lot of columns, several groups, up to 3 levels expandable rows, several actions, different colors for several rows and cells, a customized style and several group options, see the picture below:</p>
+<p><img src="https://media.giphy.com/media/3s81wc7lGiHRQ11fWW/giphy-downsized-large.gif" alt="dynamic-expandable-table-example" class="img-responsive"></p>
+<ol>
+<li>Create a new angular component i.e. <strong>DrugsListComponent</strong> or if you already have created a component, go to your component folder. Example component code:</li>
+</ol>
+<div><pre class="line-numbers"><code class="language-typescript">&#64;Component({
+    selector: &#39;drugs-list-component&#39;,
+    templateUrl: &#39;./drugs-list.component.html&#39;,
+    styleUrls: [&#39;./drugs-list.component.scss&#39;]
+})
+export class DrugsListComponent {
+    // your component&#39;s logic
+}</code></pre></div><ol start="2">
+<li>Create inside the folder a new injectable angular service i.e in our example we&#39;re going to name it <strong>drugs-expandable-table-data-provider.ts</strong>.</li>
+<li>Extend your created data provider service by the class <strong>AbstractDynamicExpandableTableDataProvider&lt; T &gt;</strong>.</li>
+<li>Change the generic &lt; T &gt; to your data type, you&#39;re using in your data array i.e. &lt; DrugModel &gt; or a general &lt; Object &gt;.</li>
+<li>Implement all inherited abstract functions from AbstractDynamicExpandableTableDataProvider i.e. see the code below for descriptions and explanations:</li>
+<li>At the end our example drugs expandable table data provider should look like in the code below:</li>
+</ol>
+<div><pre class="line-numbers"><code class="language-typescript">import { Injectable } from &#39;&#64;angular/core&#39;;
+import { Observable, of } from &#39;rxjs&#39;;
+import {
+    AbstractDynamicExpandableTableDataProvider,
+    DynamicExpandableTableColumnDefinitionConstants,
+    DynamicExpandableTableExpandedItemColumnInterace,
+    DynamicTableColumnInterace,
+    DynamicExpandableTableOptionInterface,
+    DynamicTableGroupInterface,
+    DynamicTableUIUtils
+} from &#39;ngx-dynamic-material-table&#39;;
+
+&#64;Injectable()
+export class DrugsExpandableTableDataProvider extends AbstractDynamicExpandableTableDataProvider&lt;Object&gt; {
+
+    public static readonly MOUSE_OVER_EVENT_SHOW_DRUG_PACKAGE = &#39;showDrugPackageOnMouseOver&#39;;
+    public static readonly MOUSE_OUT_EVENT_HIDE_DRUG_PACKAGE = &#39;hideDrugPackageOnMouseOut&#39;;
+    public static readonly ACTION_EDIT_DRUG = &#39;editSelectedDrug&#39;;
+    private static readonly GROUP_NAME_1 = &#39;Requested drugs&#39;;
+    private static readonly GROUP_NAME_2 = &#39;Active drugs&#39;;
+    private static readonly GROUP_NAME_3 = &#39;Reserved drugs&#39;;
+    private static readonly GROUP_NAME_4 = &#39;Rejected drugs&#39;;
+    private static readonly GROUP_NAME_5 = &#39;Expired drugs&#39;;
+    private expandedItemTableData: Object[] = this.createExpandedItemData(); // 1. level expanded row data
+
+    constructor(private drugsService: DrugsService, private userService: UserService) { super(); }
+
+    // Defines and gets the columns displayed in the drugs list table.
+    getColumns(): DynamicTableColumnInterace[] {
+        return [
+            this.iconColumnDefinition,
+            { columns: [DynamicExpandableTableColumnDefinitionConstants.DESCRIPTION], names: [&#39;ATC Code&#39;], backgroundColor: null },
+            { columns: [DynamicExpandableTableColumnDefinitionConstants.HTML_CONTENT_SUMMARY], names: [&#39;Drug Name&#39;], backgroundColor: null },
+            { columns: [DynamicExpandableTableColumnDefinitionConstants.HTML_ICON], names: [&#39;Drug Icon&#39;], backgroundColor: null },
+            {
+                columns:
+                    [
+                        DynamicExpandableTableColumnDefinitionConstants.OTHER_TEXT_BASED1,
+                        DynamicExpandableTableColumnDefinitionConstants.OTHER_TEXT_BASED2,
+                        DynamicExpandableTableColumnDefinitionConstants.OTHER_TEXT_BASED3,
+                        DynamicExpandableTableColumnDefinitionConstants.OTHER_TEXT_BASED4,
+                    ],
+                names: [&#39;Morning&#39;, &#39;Noon&#39;, &#39;Evening&#39;, &#39;Night&#39;], backgroundColor: null
+            },
+            { columns: [DynamicExpandableTableColumnDefinitionConstants.TITLE], names: [&#39;Drug Administration&#39;], backgroundColor: null },
+            this.expandableColumn,
+            { columns: [DynamicExpandableTableColumnDefinitionConstants.HTML_ACTIONS], names: [&#39;Actions&#39;], backgroundColor: &#39;#4AC3FC&#39; }
+        ];
+    }
+
+    // Retrieves the drugs data displayed as row items inside of the table.
+    getData(sort: string, order: string, page: number): Observable&lt;object[]&gt; {
+        return this.drugsService.loadDrugs(&#39;de&#39;);
+    }
+
+    // Retrieves an individual icon for each groups icon cell
+    getAdditionalInfo(item: object, rowIndex: number, groupIndex: number, groupName: string): string {
+        const stringBuffer = new StringBuffer();
+        if (groupName === EMedisExpandableTableDataProvider.GROUP_NAME_1 &amp;&amp; groupIndex === 0) {
+            stringBuffer.append(&#39;&lt;mat-icon class=&quot;icon-large&quot; svgIcon=&quot;&#39; + User.getIcon(7) + &#39;&quot;&gt;&lt;/mat-icon&gt;&#39;);
+        } else if (groupName === EMedisExpandableTableDataProvider.GROUP_NAME_2 &amp;&amp; groupIndex === 1) {
+            stringBuffer.append(&#39;&lt;mat-icon class=&quot;icon-large&quot; svgIcon=&quot;cdss-ok&quot;&gt;&lt;/mat-icon&gt;&#39;);
+        } else if (groupName === EMedisExpandableTableDataProvider.GROUP_NAME_3 &amp;&amp; groupIndex === 2) {
+            stringBuffer.append(&#39;&lt;mat-icon class=&quot;icon-large&quot; svgIcon=&quot;cdss-warning&quot;&gt;&lt;/mat-icon&gt;&#39;);
+        } else if (groupName === EMedisExpandableTableDataProvider.GROUP_NAME_4 &amp;&amp; groupIndex === 3) {
+            stringBuffer.append(&#39;&lt;mat-icon class=&quot;icon-large&quot; svgIcon=&quot;cdss-danger&quot;&gt;&lt;/mat-icon&gt;&#39;);
+        }
+        return stringBuffer.toString();
+    }
+
+    // Retrieves the drug&#39;s pill image and a functionality to show the drug package inside a modal window on mouse over
+    getHTMLIcon(item: object, rowIndex: number, groupIndex: number, groupName: string): string {
+        const stringBuffer = new StringBuffer();
+        stringBuffer.append(&#39;&lt;img tooltipDirective src=&quot;&#39; + item[&#39;medinfo&#39;][&#39;_pifLink&#39;] + &#39;&quot; alt=&quot;&#39; + item[&#39;name&#39;] + &#39;&quot; class=&quot;drug-image&quot;&#39;);
+        stringBuffer.append(&#39; (mouseover)=&quot;&#39; + DynamicTableUIUtils.createMouseOverEvent(EMedisExpandableTableDataProvider.MOUSE_OVER_EVENT_SHOW_DRUG_PACKAGE, item) + &#39;&quot;&#39;);
+        stringBuffer.append(&#39; (mouseout)=&quot;&#39; + DynamicTableUIUtils.createMouseOutEvent(EMedisExpandableTableDataProvider.MOUSE_OUT_EVENT_HIDE_DRUG_PACKAGE, item) + &#39;&quot;&#39;);
+        stringBuffer.append(&#39; /&gt;&#39;);
+        return stringBuffer.toString();
+    }
+
+    // Retrieves the intake direction (after the meal) and drugs administrator route (per oral) information
+    getTitle(item: object, rowIndex: number, groupIndex: number, groupName: string): string {
+        let title = &#39;&lt;div class=&quot;drug-when&quot;&gt;&#39; + this.eMedisTranslationsService.getWhenTranslatedText(item) + &#39;&lt;/div&gt;&#39;;
+        title += &#39;&lt;div class=&quot;drug-administration&quot;&gt;&#39; + item[&#39;_medicationAdministrationDescription&#39;] + &#39;&lt;/div&gt;&#39;;
+        return title;
+    }
+
+    // Retrieves the substances of a drug (i.e. paracetamol)
+    getDescription(item: object, rowIndex: number, groupIndex: number, groupName: string): string {
+        return &#39;&lt;div class=&quot;medinfo-atc&quot;&gt;&#39; + DrugsUtils.getAtcDescriptionByCode(this.atcCodes, item[&#39;medinfo&#39;][&#39;_atc&#39;]) + &#39;&lt;/div&gt;&#39;;
+    }
+
+    // Retrieves the substances of a drug (i.e. paracetamol) 
+    getHTMLContentSummary(item: object, rowIndex: number, groupIndex: number, groupName: string): string {
+        let description = &#39;&lt;div class=&quot;drug-name&quot;&gt;&#39; + item[&#39;medinfo&#39;][&#39;dscr&#39;] + &#39;&lt;/div&gt;&#39;;
+        const substances = item[&#39;medinfo&#39;][&#39;subst&#39;];
+        if (substances != null &amp;&amp; substances.length &gt; 0) {
+            description += &#39;&lt;div class=&quot;active-ingredient&quot;&gt;&#39; + EMedisUtils.convertSubstancesToString(substances) + &#39;&lt;/div&gt;&#39;;
+        }
+        return description;
+    }
+
+    // Retrieves additional text based columns
+    getOtherTextBased(item: object, columnIndex: number, groupIndex: number, groupName: string): string {
+        const unit = item[&#39;medinfo&#39;][&#39;_qtyu&#39;];
+        if (columnIndex === 1) {
+            return item[&#39;_morning&#39;];
+        } else if (columnIndex === 2) {
+            return item[&#39;_noon&#39;];
+        } else if (columnIndex === 3) {
+            return item[&#39;_evening&#39;];
+        } else if (columnIndex === 4) {
+            return item[&#39;_night&#39;];
+        }
+        return &#39;&#39;;
+    }
+
+    // Retrieves the actions for each drug itemn and group. (i.e. for the first group we return a slide toggle button)
+    getHTMLAction(item: object, rowIndex: number, groupIndex: number, groupName: string): string {
+        const stringBuffer = new StringBuffer();
+        if (groupName === DrugsListDataProvider.GROUP_NAME_1 &amp;&amp; groupIndex === 0) {
+            stringBuffer.append(&#39;&lt;mat-slide-toggle color=&quot;accent&quot; class=&quot;requested-drugs-slide-toggle&quot;&gt;&lt;/mat-slide-toggle&gt;&#39;);
+        } else {
+            stringBuffer.append(&#39;&lt;mat-icon class=&quot;icon-medium icon-color-white edit-drug&quot;&#39;);
+            stringBuffer.append(&#39;(click)=&quot;&#39; + DynamicTableUIUtils.createHTMLAction(EMedisExpandableTableDataProvider.ACTION_EDIT_DRUG, item) + &#39;&quot;&gt;&#39;);
+            stringBuffer.append(&#39;edit&#39;);
+            stringBuffer.append(&#39;&lt;/mat-icon&gt;&#39;);
+        }
+        return stringBuffer.toString();
+    }
+
+    // Defines and retrieves options for several table groups 
+    getOptions(): DynamicExpandableTableOptionInterface[] {
+        const options: DynamicExpandableTableOptionInterface[] = [];
+        // General column options
+        const expandableColumnOption = Object.assign({}, this.expandableColumn);
+        expandableColumnOption[&#39;hoverBackgroundColor&#39;] = &#39;#494949&#39;; // Change hover background color
+        const actionsColumnOption = { columns: [DynamicExpandableTableColumnDefinitionConstants.HTML_ACTIONS], names: [&#39;Actions&#39;], backgroundColor: &#39;#4AC3FC&#39; };
+        actionsColumnOption[&#39;backgroundColor&#39;] = &#39;#FFFFFF&#39;; // Change background color of the actions column
+        // 1. table group options: Requested drugs
+        const groupByRequested: DynamicTableGroupInterface = this.createGroupExpression(&#39;approval&#39;, [{ &#39;operator&#39;: &#39;==&#39;, &#39;value&#39;: DrugApprovalConstants.PENDING }]);
+        options.push(this.createExpandableTableOption(DrugsExpandableTableDataProvider.GROUP_NAME_1, [{ group: groupByRequested, operator: &#39;&#39; }], [expandableColumnOption, actionsColumnOption], &#39;#F2E70A&#39;));
+        // 2. table group options: Active drugs
+        const table2IconColumnOption = Object.assign({}, this.iconColumnDefinition);
+        table2IconColumnOption[&#39;backgroundColor&#39;] = &#39;#4AC3FC&#39;;
+        const groupByApproved: DynamicTableGroupInterface = this.createGroupExpression(&#39;approval&#39;, [{ &#39;operator&#39;: &#39;==&#39;, &#39;value&#39;: DrugApprovalConstants.APPROVED }]);
+        const groupByWithoutReserved: DynamicTableGroupInterface = this.createGroupExpression(&#39;_usage&#39;, [{ &#39;operator&#39;: &#39;!=&#39;, &#39;value&#39;: DrugUsageConstants.RESERVED }], &#39;Number&#39;);
+        const groupByDate: DynamicTableGroupInterface = this.createGroupExpression(&#39;date-to&#39;, [{ &#39;operator&#39;: &#39;==&#39;, &#39;value&#39;: &#39;null&#39; }, { &#39;operator&#39;: &#39;||&#39;, &#39;value&#39;: &#39;&#39; }, { &#39;operator&#39;: &#39;!=&#39;, &#39;value&#39;: null }], &#39;Date&#39;);
+        options.push(this.createExpandableTableOption(DrugsExpandableTableDataProvider.GROUP_NAME_2, [{ group: groupByApproved, operator: &#39;&amp;&amp;&#39; }, { group: groupByWithoutReserved, operator: &#39;&amp;&amp;&#39; }, { group: groupByDate, operator: &#39;&#39; }], [expandableColumnOption, table2IconColumnOption]));
+        // 3. table group options: Reserved drugs
+        const table3IconColumnOption = Object.assign({}, this.iconColumnDefinition);
+        table3IconColumnOption[&#39;backgroundColor&#39;] = &#39;#4AC3FC&#39;;
+        const groupByReserved: DynamicTableGroupInterface = this.createGroupExpression(&#39;_usage&#39;, [{ &#39;operator&#39;: &#39;==&#39;, &#39;value&#39;: DrugUsageConstants.RESERVED }], &#39;Number&#39;);
+        options.push(this.createExpandableTableOption(DrugsExpandableTableDataProvider.GROUP_NAME_3, [{ group: groupByReserved, operator: &#39;&#39; }], [expandableColumnOption, table3IconColumnOption]));
+        // return table options
+        return options;
+    }
+
+    // Retrieves the 1. level expanded row columns
+    getExpandedItemTableColumns(expandedItem: object): DynamicExpandableTableExpandedItemColumnInterace[] {
+        return [
+            this.createExpandedItemColumn(&#39;expandedItemExpandableColumn&#39;, &#39;&#39;, &#39;#494949&#39;, &#39;#ffffff&#39;, &#39;timer&#39;),
+            this.createExpandedItemColumn(&#39;unit&#39;, &#39;Einheit&#39;, &#39;#494949&#39;, &#39;#ffffff&#39;),
+            this.createExpandedItemColumn(&#39;unittype&#39;, &#39;Form&#39;, &#39;#494949&#39;, &#39;#ffffff&#39;),
+            this.createExpandedItemColumn(&#39;article&#39;, &#39;Art&#39;, &#39;#494949&#39;, &#39;#ffffff&#39;),
+            this.createExpandedItemColumn(&#39;dateRange&#39;, &#39;Wirkzeitraum&#39;, &#39;#494949&#39;, &#39;#ffffff&#39;),
+            this.createExpandedItemColumn(&#39;reason&#39;, &#39;Grund&#39;, &#39;#494949&#39;, &#39;#ffffff&#39;),
+            this.createExpandedItemColumn(&#39;physicianDrugAdministrator&#39;, &#39;Verordnet durch&#39;, &#39;#494949&#39;, &#39;#ffffff&#39;),
+            this.createExpandedItemColumn(&#39;comment&#39;, &#39;Bemerkung&#39;, &#39;#494949&#39;, &#39;#ffffff&#39;)
+        ];
+    }
+
+    // Retrieves the data that should be displayed for the 1. expanded row
+    getExpandedItemTableData(expandedItem: object): Observable&lt;object[]&gt; {
+        const itemDetails: Object = this.expandedItemTableData[0];
+        itemDetails[&#39;unit&#39;] = expandedItem[&#39;medinfo&#39;][&#39;_qty&#39;] + &#39; &#39; + expandedItem[&#39;medinfo&#39;][&#39;_qtyu&#39;];
+        itemDetails[&#39;unittype&#39;] = expandedItem[&#39;medinfo&#39;][&#39;_form&#39;];
+        itemDetails[&#39;article&#39;] = this.eMedisTranslationsService.getUsageTranslatedText(expandedItem);
+        itemDetails[&#39;dateRange&#39;] = &#39;Von: &#39; + expandedItem[&#39;date-from&#39;];
+        if (expandedItem[&#39;date-to&#39;] != null) {
+            itemDetails[&#39;dateRange&#39;] += &#39;&lt;br/&gt;&#39; + &#39;Bis: &#39; + expandedItem[&#39;date-to&#39;];
+        }
+        itemDetails[&#39;reason&#39;] = &#39;Infektion&#39;;
+        itemDetails[&#39;physicianDrugAdministrator&#39;] = expandedItem[&#39;physician-drug-administrator-name&#39;];
+        itemDetails[&#39;comment&#39;] = expandedItem[&#39;comment&#39;];
+        return of(this.expandedItemTableData);
+    }
+
+    // Retrieves the 2. level expanded row columns
+    getExpandedItemDetailsTableColumns(expandedItemDetails: object, expandedItem: object): DynamicExpandableTableExpandedItemColumnInterace[] {
+        return [
+            this.createExpandedItemColumn(&#39;icon&#39;, &#39;&#39;, &#39;#494949&#39;, &#39;#ffffff&#39;, &#39;history-icon&#39;),
+            this.createExpandedItemColumn(&#39;unit&#39;, &#39;Einheit&#39;, &#39;#494949&#39;, &#39;#ffffff&#39;),
+            this.createExpandedItemColumn(&#39;unittype&#39;, &#39;Einheitstyp&#39;, &#39;#494949&#39;, &#39;#ffffff&#39;),
+            this.createExpandedItemColumn(&#39;article&#39;, &#39;Art&#39;, &#39;#494949&#39;, &#39;#ffffff&#39;),
+            this.createExpandedItemColumn(&#39;dateRange&#39;, &#39;Wirkzeitraum&#39;, &#39;#494949&#39;, &#39;#ffffff&#39;),
+            this.createExpandedItemColumn(&#39;reason&#39;, &#39;Indikation&#39;, &#39;#494949&#39;, &#39;#ffffff&#39;),
+            this.createExpandedItemColumn(&#39;physicianDrugAdministrator&#39;, &#39;Verordnet durch&#39;, &#39;#494949&#39;, &#39;#ffffff&#39;),
+            this.createExpandedItemColumn(&#39;comment&#39;, &#39;Bemerkung&#39;, &#39;#494949&#39;, &#39;#ffffff&#39;)
+        ];
+    }
+
+    // Retrieves the data that should be displayed for the 2. expanded row
+    getExpandedItemDetailsTableData(expandedItemDetails: object, expandedItem: object): Observable&lt;object[]&gt; {
+        return this.loadDrugHistory(expandedItem[&#39;id&#39;][&#39;elementId&#39;]);
+    }
+
+    // Loads the durgs history
+    private loadDrugHistory(drugElementId: number): Observable&lt;object[]&gt; {
+        return this.drugsService.loadDrugHistory(drugElementId, this.UserConfig.patientId, this.UserConfig.orgId)
+            .pipe(
+                map((drugElements: Object[]) =&gt; {
+                    return this.drugsHistoryConverterPipe.transform(drugElements);
+                })
+            );
+    }
+
+    // Create an key value based object as an expanded item
+    private createExpandedItemData(): Object[] {
+        return [
+            {
+                &#39;expandedItemExpandableColumn&#39;: &#39;&#39;,
+                &#39;unit&#39;: &#39;&#39;,
+                &#39;unittype&#39;: &#39;&#39;,
+                &#39;article&#39;: &#39;&#39;,
+                &#39;dateRange&#39;: &#39;&#39;,
+                &#39;reason&#39;: &#39;&#39;,
+                &#39;physicianDrugAdministrator&#39;: &#39;&#39;,
+                &#39;comment&#39;: &#39;&#39;
+            },
+        ];
+    }
+
+    /////////////////////// Undefined columns/cells ///////////////////////
+    getIndicatorColor(item: object): string {
+        throw new Error(&quot;Method not implemented.&quot;);
+    }
+
+    getIndicatorSign(item: object): string {
+        throw new Error(&quot;Method not implemented.&quot;);
+    }
+
+}</code></pre></div><ul>
+<li>As you can see all groups are created inside of the table options and the logic how to group the data is defined there as well. i.e. in the first group we want to group all approved drugs, so we defined the following group expression: Group by the property &#39;approval&#39; and it&#39;s {&#39;operator&#39;: &#39;==&#39;, &#39;value&#39;: DrugApprovalConstants.PENDING }</li>
+<li>Notice that we defined different column background colors for expanded rows and additional in the table options individual cell background colors can also be defined.</li>
+<li>Go to your module where your drugs list component is declared, and define the DrugsExpandableTableDataProvider like in the code below, see especially the providers[] section:</li>
+</ul>
+<div><pre class="line-numbers"><code class="language-typescript">import { NgModule } from &#39;&#64;angular/core&#39;;
+import { DynamicExpandableTableDataProvider, DynamicExpandableTableDataProvider } from &#39;ngx-dynamic-material-table&#39;;
+
+&#64;NgModule({
+    imports: [
+        DynamicExpandableTableModule,
+        DynamicExpandableTableModule.forRoot()
+    ],
+    declarations: [
+        DrugsListComponent
+    ],
+    providers: [
+        DrugsExpandableTableDataProvider,
+        { provide: DynamicExpandableTableDataProvider, useExisting: DrugsExpandableTableDataProvider },
+    ],
+})
+export class YourModule { }</code></pre></div><ol start="7">
+<li>Add to your component html template in our case <strong>drugs-list.component.html</strong> the following code snippet, notice that you can show or hide the filter:</li>
+</ol>
+<div><pre class="line-numbers"><code class="language-html">&lt;dynamic-expandable-table [showFilter]=&quot;false&quot;&gt;&lt;/dynamic-expandable-table&gt;</code></pre></div><ol start="8">
+<li>Theming: see the following code example how to use a customized style for your table. For our tutorial example open your <strong>drugs-list.component.scss</strong> file and add:</li>
+</ol>
+<div><pre class="line-numbers"><code class="language-scss">&#64;import &#39;../../../../../node_modules/ngx-dynamic-material-table/theming&#39;;
+
+///////////////////////////////////// VARIABLES /////////////////////////////////////
+$row-height: 80px;
+
+///////////////////////////////////// GENERAL STYLES /////////////////////////////////////
+.flex-column {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    align-content: center;
+    margin-left: 0px !important;
+}
+
+.text-color {
+    color: #494949;
+}
+
+:host ::ng-deep .mat-toolbar {
+    min-height: 50px;
+    height: 50px;
+}
+
+:host ::ng-deep .mat-row {
+    overflow: hidden;
+}
+
+:host ::ng-deep .mat-cell {
+    &#64;extend .text-color;
+    border-right: 0.5px solid #e0e0e0;
+}
+
+:host ::ng-deep .mat-cell:first-child {
+    padding-left: 0px !important;
+}
+
+///////////////////////////////////// OVERRIDE PREDEFINED COLUMNS /////////////////////////////////////
+.drugs-column {
+    justify-content: center;
+}
+
+:host ::ng-deep .color-column {
+    &#64;extend .drugs-column;
+    width: 0%;
+    min-width: 0%;
+    max-width: 0%;
+}
+
+:host ::ng-deep .html-content-summary-column {
+    &#64;extend .drugs-column;
+    justify-content: flex-start;
+    padding-left: 5px;
+    width: 30% !important;
+    min-width: 30% !important;
+    max-width: 30% !important;
+}
+
+:host ::ng-deep .description-column {
+    &#64;extend .drugs-column;
+    justify-content: flex-start;
+    padding-left: 5px;
+    width: 15%;
+    min-width: 15%;
+    max-width: 15%;
+}
+
+:host ::ng-deep .title-column {
+    &#64;extend .drugs-column;
+    justify-content: flex-start;
+    padding-left: 5px;
+    width: 15%;
+    min-width: 15%;
+    max-width: 15%;
+}
+
+:host ::ng-deep .icon-column {
+    &#64;extend .drugs-column;
+    width: 5%;
+    min-width: 5%;
+    max-width: 5%;
+}
+
+:host ::ng-deep .additional-info-column {
+    &#64;extend .drugs-column;
+    width: 5% !important;
+    min-width: 5% !important;
+    max-width: 5% !important;
+}
+
+:host ::ng-deep .other-text-based-column {
+    &#64;extend .drugs-column;
+    width: 5%;
+    min-width: 5%;
+    max-width: 5%;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 24px;
+}
+
+:host ::ng-deep .expandable-row-column {
+    &#64;extend .drugs-column;
+    cursor: pointer;
+    width: 5%;
+    min-width: 5%;
+    max-width: 5%;
+}
+
+:host ::ng-deep .actions-column {
+    &#64;extend .drugs-column;
+    justify-content: flex-end;
+    min-width: 5% !important;
+}
+
+///////////////////////////////////// (1. LEVEL) EXPANDED ITEM TABLE COLUMNS /////////////////////////////////////
+:host ::ng-deep .pal-expandable-table-grouped-container {
+    width: 85%
+}
+
+:host ::ng-deep .pal-expandable-table-grouped {
+    margin-top: 25px;
+}
+
+.expanded-item-columns {
+    &#64;extend .flex-column;
+    background-color: #5D5D5D;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 16px;
+}
+
+:host ::ng-deep .expanded-item-column-expandedItemExpandableColumn {
+    &#64;extend .expanded-item-columns;
+    justify-content: center;
+    width: 5%;
+    min-width: 5%;
+    max-width: 5%;
+    background-color: #40C4FF;
+    cursor: pointer;
+}
+
+:host ::ng-deep .expanded-item-column-unit {
+    &#64;extend .expanded-item-columns;
+    justify-content: center;
+    width: 10%;
+    min-width: 10%;
+    max-width: 10%;
+}
+
+:host ::ng-deep .expanded-item-column-unittype {
+    &#64;extend .expanded-item-columns;
+    justify-content: center;
+    width: 10%;
+    min-width: 10%;
+    max-width: 10%;
+}
+
+:host ::ng-deep .expanded-item-column-article {
+    &#64;extend .expanded-item-columns;
+    justify-content: center;
+    width: 10%;
+    min-width: 10%;
+    max-width: 10%;
+}
+
+:host ::ng-deep .expanded-item-column-dateRange {
+    &#64;extend .expanded-item-columns;
+    justify-content: center;
+    width: 15%;
+    min-width: 15%;
+    max-width: 15%;
+}
+
+:host ::ng-deep .expanded-item-column-reason {
+    &#64;extend .expanded-item-columns;
+    justify-content: center;
+    width: 10%;
+    min-width: 10%;
+    max-width: 10%;
+}
+
+:host ::ng-deep .expanded-item-column-physicianDrugAdministrator {
+    &#64;extend .expanded-item-columns;
+    justify-content: center;
+    width: 10%;
+    min-width: 10%;
+    max-width: 10%;
+}
+
+:host ::ng-deep .expanded-item-column-comment {
+    &#64;extend .expanded-item-columns;
+    justify-content: center;
+    width: 30%;
+    min-width: 30%;
+    max-width: 30%;
+}
+
+///////////////////////////////////// (2. LEVEL) EXPANDED ITEM DETAIL TABLE COLUMNS /////////////////////////////////////
+.expanded-item-detail-columns {
+    &#64;extend .expanded-item-columns;
+    background-color: #EAEAEA;
+    color: #5D5D5D;
+}
+
+:host ::ng-deep .expanded-item-detail-column-icon {
+    &#64;extend .expanded-item-column-expandedItemExpandableColumn;
+    background-color: #FFFFFF;
+    color: #000000;
+    cursor: default;
+}
+
+:host ::ng-deep .expanded-item-detail-column-unit {
+    &#64;extend .expanded-item-detail-columns,
+    .expanded-item-column-unit;
+}
+
+:host ::ng-deep .expanded-item-detail-column-unittype {
+    &#64;extend .expanded-item-detail-columns,
+    .expanded-item-column-unittype;
+}
+
+:host ::ng-deep .expanded-item-detail-column-article {
+    &#64;extend .expanded-item-detail-columns,
+    .expanded-item-column-article;
+}
+
+:host ::ng-deep .expanded-item-detail-column-dateRange {
+    &#64;extend .expanded-item-detail-columns,
+    .expanded-item-column-dateRange;
+}
+
+:host ::ng-deep .expanded-item-detail-column-reason {
+    &#64;extend .expanded-item-detail-columns,
+    .expanded-item-column-reason;
+}
+
+:host ::ng-deep .expanded-item-detail-column-physicianDrugAdministrator {
+    &#64;extend .expanded-item-detail-columns,
+    .expanded-item-column-physicianDrugAdministrator;
+}
+
+:host ::ng-deep .expanded-item-detail-column-comment {
+    &#64;extend .expanded-item-detail-columns,
+    .expanded-item-column-comment;
+}
+
+///////////////////////////////////// STYLE THE CONTENT INSIDE OF COLUMNS USED BY DrugsExpandableTableDataProvider /////////////////////////////////////
+:host ::ng-deep .active-ingredient {
+    // font-family: &quot;Roboto Slab&quot;;
+    font-size: 14px; // 1vw
+    font-weight: 300;
+    line-height: 19px;
+}
+
+:host ::ng-deep .drug-name {
+    // font-family: &quot;Roboto Slab&quot;;
+    font-size: 18px;
+    font-weight: 500; // bold
+    line-height: 24px;
+}
+
+:host ::ng-deep .drug-image {
+    width: 50px;
+    height: 50px;
+}
+
+:host ::ng-deep .drug-when {
+    &#64;extend .text-color;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+:host ::ng-deep .drug-administration {
+    &#64;extend .text-color;
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 21px;
+}
+
+:host ::ng-deep .medinfo-atc {
+    &#64;extend .text-color;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 21px;
+}
+
+:host ::ng-deep .mat-slide-toggle-bar {
+    background-color: #40C4FF;
+}
+
+:host ::ng-deep .edit-drug {
+    cursor: pointer;
+}</code></pre></div><ul>
+<li>To override the style you need to import the theming file: @import &#39;../../../../../node_modules/ngx-dynamic-material-table/theming&#39;;</li>
+<li>As you can see above you can easily override predefined columns for a row and set the column widths.</li>
+<li>Notice that for each defined expanded table columnId in the DrugsExpandableTableDataProvider, automatically a css class is generated, which you can override. See i.e. .expanded-item-column-<strong>unittype</strong> or .expanded-item-detail-column-<strong>reason</strong> classes above are generated and can be overriden for a customized style.</li>
+<li>To handle actions or mouse events implement in your component i.e. in our example  <strong>DrugsListComponent</strong> the generic interface <strong>UsingDynamicTableComponent&lt; T &gt;</strong> like in the code below:</li>
+</ul>
+<div><pre class="line-numbers"><code class="language-typescript">import { Component, AfterViewInit } from &#39;&#64;angular/core&#39;;
+import { DrugsExpandableTableDataProvider } from &#39;./drugs-expandable-table-data.provider&#39;;
+import { UsingDynamicTableComponent, DynamicTableActionMessageService } from &#39;ngx-dynamic-material-table&#39;;
+
+&#64;Component({
+    selector: &#39;drugs-list-component&#39;,
+    templateUrl: &#39;./drugs-list.component.html&#39;,
+    styleUrls: [&#39;./drugs-list.component.scss&#39;]
+})
+export class DrugsListComponent implements AfterViewInit, UsingDynamicTableComponent&lt;Object&gt; { 
+
+    constructor(
+        private dynamicTableActionMessageService: DynamicTableActionMessageService&lt;object&gt;,
+        private drugsExpandableTableDataProvider: DrugsExpandableTableDataProvider,
+    ) {}
+
+    ngAfterViewInit() {
+        this.handleDynamicTableActions(this.dynamicTableActionMessageService.getPubisher());
+        this.handleDynamicTableMouseOverEvents(this.dynamicTableActionMessageService.getPubisher());
+        this.handleDynamicTableMouseOutEvents(this.dynamicTableActionMessageService.getPubisher());
+    }
+
+    // Handles actions published by the dynamic table i.e. edit the selected drug
+    handleDynamicTableActions(publisher: Observable&lt;object&gt;): void {
+        if (publisher != null) {
+            publisher.subscribe(
+                (actionMessage: DynamicTableActionMessageService&lt;object&gt;) =&gt; {
+                    switch (actionMessage.getAction()) {
+                        case DrugsExpandableTableDataProvider.ACTION_EDIT_DRUG:
+                            this.openSideNav(actionMessage.getItem());
+                            break;
+                    }
+                }
+            );
+        }
+    }
+
+    // Handles mouse over events published by the dynamic table i.e. show drug&#39;s package pic in a modal window
+    handleDynamicTableMouseOverEvents(publisher: Observable&lt;object&gt;): void {
+        if (publisher != null) {
+            publisher.subscribe(
+                (mouseEventMessage: DynamicTableMouseEventMessageService&lt;object&gt;) =&gt; {
+                    switch (mouseEventMessage.getMouseEvent()) {
+                        case DrugsExpandableTableDataProvider.MOUSE_OVER_EVENT_SHOW_DRUG_PACKAGE:
+                            this.bottomSheet.open(EMedisDrugImageBottomSheetComponent, {
+                                data: {
+                                    imageUrl: mouseEventMessage.getItem()[&#39;medinfo&#39;][&#39;_pafLink&#39;],
+                                    imageWidth: 400,
+                                    imageHeight: 400
+                                },
+                            });
+                            break;
+                    }
+                }
+            );
+        }
+    }
+
+    // Handles mouse out events published by the dynamic table i.e. hide drug&#39;s package pic
+    handleDynamicTableMouseOutEvents(publisher: Observable&lt;object&gt;): void {
+        if (publisher != null) {
+            publisher.subscribe(
+                (mouseEventMessage: DynamicTableMouseEventMessageService&lt;object&gt;) =&gt; {
+                    switch (mouseEventMessage.getMouseEvent()) {
+                        case DrugsExpandableTableDataProvider.MOUSE_OUT_EVENT_HIDE_DRUG_PACKAGE:
+                            this.bottomSheet.dismiss();
+                            break;
+                    }
+                }
+            );
+        }
+    }
+
+}</code></pre></div><ul>
+<li>Notice that action, mouse over and out events are defined in the DrugsExpandableTableDataProvider using the DynamicTableUIUtils class.</li>
+<li>The actions and mouse events are published by the dynamic table and you can subscribe to the published events and handle them like in the code above.</li>
+</ul>
+<h2 id="development">Development</h2>
+<h1 id="scss-bundle">scss-bundle</h1>
+<blockquote>
+<p>Bundles all SCSS imports into a single file recursively.</p>
+</blockquote>
+<ol>
+<li>Make sure scss-bundle is installed globally: npm i -g scss-bundle</li>
+<li>Modify the scss-bundle.config.json file.</li>
+</ol>
+<div><pre class="line-numbers"><code class="language-json">{
+    &quot;entry&quot;: &quot;./src/main.scss&quot;,
+    &quot;dest&quot;: &quot;bundled.scss&quot;
+}</code></pre></div><p>entry *    string:    Main entry file where to start bundling.
+dest *    string    Destination file when bundling is done.</p>
+<h1 id="development-of-the-library">Development of the library</h1>
+<blockquote>
+<p>If you want to play and develop the library without a relase, follow the following steps.</p>
+</blockquote>
+<ol>
+<li>Add or modify your code in <code>ng-libraries/ngx-dynamic-material-table/</code></li>
+<li>Make sure you&#39;re on the project root and run: <code>ng build ngx-dynamic-material-table</code></li>
+<li>Go to the library folder by running <code>cd ng-libraries/ngx-dynamic-material-table</code> and run inside: <code>npm run bundle-styles</code> to bundle all styles as _theming.scss file.</li>
+<li>Make sure that the current version is deleted from the node_modules.</li>
+<li>Copy <code>dist/ngx-dynamic-material-table</code> and paste it to the <code>node_modules</code></li>
+<li>Now you can start your angular application as usual by running <code>ng serve</code></li>
+<li>If you want to debug the library you need to publish the source maps, for that just start the application by running the command <code>ng serve --vendorSourceMap</code></li>
+</ol>
+<p>:warning: but note that your changes are still unpublished to the npm repository.</p>
+<h1 id="publish-a-new-version-to-the-npm-repository">Publish a new version to the NPM repository</h1>
+<blockquote>
+<p>Follow the following steps to publish the library to the npm repository.</p>
+</blockquote>
+<ol>
+<li>Increase the version in package.json in ng-libraries/ngx-dynamic-material-table/</li>
+<li>Inside of the root project web/ run: ng build ngx-dynamic-material-table</li>
+<li>Go to dist/ngx-dynamic-material-table</li>
+<li>Login to the npm repository by running: npm login</li>
+<li>Publish to the npm repository by running: npm publish</li>
+</ol>
+<h1 id="changelog">Changelog</h1>
+<blockquote>
+<p>Below you can find the list of changelogs.</p>
+</blockquote>
+<h1 id="0-2-6">0.2.6</h1>
+<ul>
+<li>Fixed several design issues (flex layout)</li>
+</ul>
+<h1 id="0-2-5">0.2.5</h1>
+<ul>
+<li>Added tutorial pictures</li>
+</ul>
+<h1 id="0-2-4">0.2.4</h1>
+<ul>
+<li>Documented the library and added tutorials</li>
+<li>Added DynamicTableExpressionBuilder, an expression builder for table groups</li>
+<li>Added DynamicTableUIUtils class for easily creation of dynamic table conform UI components.</li>
+</ul>
+<h1 id="0-2-3">0.2.3</h1>
+<ul>
+<li>fixed data loading bug</li>
+</ul>
+<h1 id="0-2-2">0.2.2</h1>
+<ul>
+<li>fixed several bugs and added theming support</li>
+</ul>
+<h1 id="0-2-1">0.2.1</h1>
+<ul>
+<li>changed packaging to ng-packgr provided by the angular cli</li>
+</ul>
+<h1 id="0-2-0">0.2.0</h1>
+<ul>
+<li>further enhancements on generated folder structure</li>
+</ul>
+<h1 id="0-1-9">0.1.9</h1>
+<ul>
+<li>further enhancements on generated folder structure</li>
+</ul>
+<h1 id="0-1-8">0.1.8</h1>
+<ul>
+<li>enhanced generated file folder structure</li>
+</ul>
+<h1 id="0-1-7">0.1.7</h1>
+<ul>
+<li>added declaration file for module</li>
+</ul>
+<h1 id="0-1-6">0.1.6</h1>
+<ul>
+<li>changed transpile to typescript</li>
+</ul>
+<h1 id="0-1-5">0.1.5</h1>
+<ul>
+<li>excluded dependencies from rollup</li>
+</ul>
+<h1 id="0-1-4">0.1.4</h1>
+<ul>
+<li>changed rollup configs</li>
+</ul>
+<h1 id="0-1-3">0.1.3</h1>
+<ul>
+<li>merged all index files to a single index.ts file</li>
+</ul>
+<h1 id="0-1-2">0.1.2</h1>
+<ul>
+<li>adapted index.ts files</li>
+</ul>
+<h1 id="0-1-1">0.1.1</h1>
+<ul>
+<li>added styles which can be found in src/dynamic-table-styles.scss</li>
+</ul>
+<h1 id="0-1-0">0.1.0</h1>
+<ul>
+<li>draft implementation</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 0;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'getting-started';
+            var COMPODOC_CURRENT_PAGE_URL = 'index.html';
+       </script>
+
+       <script src="./js/libs/custom-elements.min.js"></script>
+       <script src="./js/libs/lit-html.js"></script>
+       <script src="./js/menu-wc.js"></script>
+
+       <script src="./js/libs/bootstrap-native.js"></script>
+
+       <script src="./js/libs/es6-shim.min.js"></script>
+       <script src="./js/libs/EventDispatcher.js"></script>
+       <script src="./js/libs/promise.min.js"></script>
+       <script src="./js/libs/zepto.min.js"></script>
+
+       <script src="./js/compodoc.js"></script>
+
+       <script src="./js/tabs.js"></script>
+       <script src="./js/menu.js"></script>
+       <script src="./js/libs/clipboard.min.js"></script>
+       <script src="./js/libs/prism.js"></script>
+       <script src="./js/sourceCode.js"></script>
+          <script src="./js/search/search.js"></script>
+          <script src="./js/search/lunr.min.js"></script>
+          <script src="./js/search/search-lunr.js"></script>
+          <script src="./js/search/search_index.js"></script>
+       <script src="./js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

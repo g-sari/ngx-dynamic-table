@@ -1,0 +1,4 @@
+{
+    "entry": "./src/lib/dynamic-table/table/table-instance.component.scss",
+    "dest": "../../dist/ngx-dynamic-material-table/_theming.scss"
+}

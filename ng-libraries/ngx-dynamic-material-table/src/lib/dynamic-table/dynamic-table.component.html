@@ -1,0 +1,25 @@
+<div class="pal-table-container mat-elevation-z8">
+
+  <div class="pal-table-header" *ngIf="showFilter">
+    <mat-form-field class="pal-table-filter">
+      <input matInput value="{{filterHint}}" (click)="onFilterEnter()" 
+        (blur)="onFilterLeave()"> <!-- (keyup)="applyFilter($event.target.value)" -->
+    </mat-form-field>
+  </div>
+
+  <!-- TABLE WITH GROUPS -->
+  <div class="pal-table-grouped-container" *ngIf="tableOptions != null && tableOptions.length > 0">
+    <div class="pal-table-grouped" *ngFor="let tableOption of tableOptions; let tableIndex = index;">
+      <mat-toolbar>{{tableOption.groupName}} </mat-toolbar>
+      <table-instance-component [palTableContainer]="tableIndex" [hideColumns]="tableOption.hideColumns" [groupIndex]="tableIndex"
+        [groupName]="tableOption.groupName" [groupExpressions]="tableOption.groupExpressions" [itemRowColor]="tableOption.groupItemRowColor"
+        [columnOptions]="tableOption.columnOptions" [actionsSubject]="actionsSubject" [mouseEventsSubject]="mouseEventsSubject"></table-instance-component>
+    </div>
+  </div>
+
+  <!-- TABLE ONLY -->
+  <table-instance-component *ngIf="tableOptions == null || tableOptions.length == 0" [hideColumns]="true" [groupName]="null"
+    [groupIndex]="0" [groupExpressions]="null" [itemRowColor]="null" [columnOptions]="null" [actionsSubject]="actionsSubject"
+    [mouseEventsSubject]="mouseEventsSubject"></table-instance-component>
+
+</div>

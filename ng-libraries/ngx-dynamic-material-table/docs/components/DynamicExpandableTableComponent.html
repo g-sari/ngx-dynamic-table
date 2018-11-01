@@ -1,0 +1,881 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>NGX DYNAMIC MATERIAL TABLE</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/original.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">NGX DYNAMIC MATERIAL TABLE</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search">
+</div>
+            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li>Components</li>
+  <li>DynamicExpandableTableComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li >
+            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li >
+            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/lib/dynamic-expandable-table/dynamic-expandable-table.component.ts</code>
+</p>
+
+
+    <p class="comment">
+        <h3>Extends</h3>
+    </p>
+    <p class="comment">
+            <code><a href="../components/DynamicTableComponent.html" target="_self" >DynamicTableComponent</a></code>
+    </p>
+
+
+
+<section>
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>dynamic-expandable-table</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>dynamic-expandable-table.component.scss,<br>.dynamic-table/table/table-instance.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./dynamic-expandable-table.component.html</code></td>
+            </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#actionsSubject">actionsSubject</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Static</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#FILTER_MIN_VALUE">FILTER_MIN_VALUE</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#filterHint">filterHint</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#mouseEventsSubject">mouseEventsSubject</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#palTableDataProvider">palTableDataProvider</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#tableOptions">tableOptions</a>
+                            </li>
+                            <li>
+                                <a href="#tablesQueryList">tablesQueryList</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#onFilterEnter">onFilterEnter</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#onFilterLeave">onFilterLeave</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#showFilter">showFilter</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(injector: <a href="https://angular.io/api/core/Injector" target="_blank">Injector</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/lib/dynamic-expandable-table/dynamic-expandable-table.component.ts:33</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>injector</td>
+                                                  
+                                                        <td>
+                                                                    <code><a href="https://angular.io/api/core/Injector" target="_blank" >Injector</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+    <section>
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-2">
+                        <a name="showFilter"></a>
+                        <code>showFilter</code>
+                    </td>
+                    <td class="col-md-10">
+                        <p>
+                            <em>Default value : </em><code>true</code>
+                        </p>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4" colspan="2">
+                                    <div class="io-line">Inherited from     <code><a href="../components/DynamicTableComponent.html" target="_self" >DynamicTableComponent</a></code>
+</div>
+                                </td>
+                            </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in DynamicTableComponent:44</div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+    <section>
+    
+        <h3 id="methods">
+            Methods
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="onFilterEnter"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            onFilterEnter
+                            </b>
+                            <a href="#onFilterEnter"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                            <span class="modifier-icon icon ion-ios-reset"></span>
+                        <code>onFilterEnter()</code>
+                    </td>
+                </tr>
+
+
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Inherited from     <code><a href="../components/DynamicTableComponent.html" target="_self" >DynamicTableComponent</a></code>
+</div>
+                                </td>
+                            </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in DynamicTableComponent:59</div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Triggered when on the filter input field is clicked.</p>
+</div>
+
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    <p>void</p>
+
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="onFilterLeave"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            onFilterLeave
+                            </b>
+                            <a href="#onFilterLeave"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                            <span class="modifier-icon icon ion-ios-reset"></span>
+                        <code>onFilterLeave()</code>
+                    </td>
+                </tr>
+
+
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Inherited from     <code><a href="../components/DynamicTableComponent.html" target="_self" >DynamicTableComponent</a></code>
+</div>
+                                </td>
+                            </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in DynamicTableComponent:67</div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Triggered when the user defocusses the filter input field.</p>
+</div>
+
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    <p>void</p>
+
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+    <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="actionsSubject"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            actionsSubject
+                            </b>
+                            <a href="#actionsSubject"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span><code>actionsSubject:     <code></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>new Subject&lt;DynamicTableActionMessageService&lt;object&gt;&gt;()</code>
+                        </td>
+                    </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Inherited from     <code><a href="../components/DynamicTableComponent.html" target="_self" >DynamicTableComponent</a></code>
+</div>
+                                </td>
+                            </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in DynamicTableComponent:41</div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="FILTER_MIN_VALUE"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Static</span>
+                                <span class="modifier">Readonly</span>
+                            FILTER_MIN_VALUE
+                            </b>
+                            <a href="#FILTER_MIN_VALUE"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span><code>FILTER_MIN_VALUE:     <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>3</code>
+                        </td>
+                    </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Inherited from     <code><a href="../components/DynamicTableComponent.html" target="_self" >DynamicTableComponent</a></code>
+</div>
+                                </td>
+                            </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in DynamicTableComponent:37</div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="filterHint"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            filterHint
+                            </b>
+                            <a href="#filterHint"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span><code>filterHint:     <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>&#x27;Filter&#x27;</code>
+                        </td>
+                    </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Inherited from     <code><a href="../components/DynamicTableComponent.html" target="_self" >DynamicTableComponent</a></code>
+</div>
+                                </td>
+                            </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in DynamicTableComponent:38</div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="mouseEventsSubject"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            mouseEventsSubject
+                            </b>
+                            <a href="#mouseEventsSubject"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span><code>mouseEventsSubject:     <code></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>new Subject&lt;DynamicTableMouseEventMessageService&lt;object&gt;&gt;()</code>
+                        </td>
+                    </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Inherited from     <code><a href="../components/DynamicTableComponent.html" target="_self" >DynamicTableComponent</a></code>
+</div>
+                                </td>
+                            </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in DynamicTableComponent:42</div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="palTableDataProvider"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            palTableDataProvider
+                            </b>
+                            <a href="#palTableDataProvider"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span><code>palTableDataProvider:     <code><a href="../injectables/DynamicTableDataProvider.html" target="_self" >DynamicTableDataProvider</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="../injectables/DynamicTableDataProvider.html" target="_self" >DynamicTableDataProvider</a></code>
+
+                        </td>
+                    </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Inherited from     <code><a href="../components/DynamicTableComponent.html" target="_self" >DynamicTableComponent</a></code>
+</div>
+                                </td>
+                            </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in DynamicTableComponent:40</div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="tableOptions"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            tableOptions
+                            </b>
+                            <a href="#tableOptions"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span><code>tableOptions:     <code><a href="../interfaces/DynamicTableOptionInterface.html" target="_self" >Array&lt;DynamicTableOptionInterface&gt;</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="../interfaces/DynamicTableOptionInterface.html" target="_self" >Array&lt;DynamicTableOptionInterface&gt;</a></code>
+
+                        </td>
+                    </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Inherited from     <code><a href="../components/DynamicTableComponent.html" target="_self" >DynamicTableComponent</a></code>
+</div>
+                                </td>
+                            </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in DynamicTableComponent:39</div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="tablesQueryList"></a>
+                        <span class="name">
+                            <b>
+                            tablesQueryList
+                            </b>
+                            <a href="#tablesQueryList"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>tablesQueryList:     <code>QueryList&lt;DynamicTableContainerDirective&gt;</code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>QueryList&lt;DynamicTableContainerDirective&gt;</code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Decorators : </i><code>ViewChildren</code>
+                        </td>
+                    </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Inherited from     <code><a href="../components/DynamicTableComponent.html" target="_self" >DynamicTableComponent</a></code>
+</div>
+                                </td>
+                            </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in DynamicTableComponent:43</div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, Injector } from &#x27;@angular/core&#x27;;
+import { MatIconRegistry } from &#x27;@angular/material&#x27;;
+import { DomSanitizer } from &#x27;@angular/platform-browser&#x27;;
+import { trigger, state, style, transition, animate } from &#x27;@angular/animations&#x27;;
+import { DynamicExpandableTableDataProvider } from &#x27;./shared/dynamic-expandable-data.provider&#x27;;
+import { DynamicTableComponent } from &#x27;../dynamic-table/dynamic-table.component&#x27;;
+
+@Component({
+    selector: &#x27;dynamic-expandable-table&#x27;,
+    templateUrl: &#x27;./dynamic-expandable-table.component.html&#x27;,
+    styleUrls: [
+        &#x27;./dynamic-expandable-table.component.scss&#x27;,
+        &#x27;../dynamic-table/table/table-instance.component.scss&#x27;
+    ],
+    animations: [
+        trigger(&#x27;detailExpand&#x27;, [
+            state(&#x27;collapsed&#x27;, style({ height: &#x27;0px&#x27;, minHeight: &#x27;0px&#x27;, display: &#x27;none&#x27; })),
+            state(&#x27;expanded&#x27;, style({ display: &#x27;inline&#x27;, height: &#x27;*&#x27; })),
+            transition(&#x27;expanded &lt;&#x3D;&gt; collapsed&#x27;, animate(&#x27;225ms cubic-bezier(0.4, 0.0, 0.2, 1)&#x27;)),
+        ]),
+    ],
+})
+export class DynamicExpandableTableComponent extends DynamicTableComponent {
+
+    protected iconRegistry: MatIconRegistry;
+    protected sanitizer: DomSanitizer;
+
+    constructor(injector: Injector) {
+        super(injector);
+        this.iconRegistry &#x3D; injector.get(MatIconRegistry);
+        this.sanitizer &#x3D; injector.get(DomSanitizer);
+        this.palTableDataProvider &#x3D; injector.get(DynamicExpandableTableDataProvider);
+        this.tableOptions &#x3D; this.palTableDataProvider.getOptions();
+        // Register SVG icons
+        this.iconRegistry.addSvgIcon(
+            &#x27;expand&#x27;,
+            this.sanitizer.bypassSecurityTrustResourceUrl(&#x27;assets/ui/images/svg/expand-icon.svg&#x27;)
+        );
+    }
+
+
+}
+
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;pal-expandable-table-container&quot;&gt;
+
+    &lt;div class&#x3D;&quot;pal-table-header&quot; *ngIf&#x3D;&quot;showFilter&quot;&gt;
+        &lt;mat-form-field class&#x3D;&quot;pal-table-filter&quot;&gt;
+            &lt;input matInput value&#x3D;&quot;{{filterHint}}&quot; (click)&#x3D;&quot;onFilterEnter()&quot; (blur)&#x3D;&quot;onFilterLeave()&quot;&gt;
+            &lt;!-- (keyup)&#x3D;&quot;applyFilter($event.target.value)&quot; --&gt;
+        &lt;/mat-form-field&gt;
+    &lt;/div&gt;
+
+    &lt;!-- EXPANDABLE TABLE WITH GROUPS --&gt;
+    &lt;div class&#x3D;&quot;pal-expandable-table-grouped-container&quot; *ngIf&#x3D;&quot;tableOptions !&#x3D; null &amp;&amp; tableOptions.length &gt; 0&quot;&gt;
+        &lt;div class&#x3D;&quot;pal-expandable-table-grouped&quot; *ngFor&#x3D;&quot;let tableOption of tableOptions; let tableIndex &#x3D; index;&quot;&gt;
+            &lt;mat-toolbar class&#x3D;&quot;pal-expandable-table-grouped-toolbar&quot;&gt;{{tableOption.groupName}} &lt;/mat-toolbar&gt;
+            &lt;expandable-table-instance [palTableContainer]&#x3D;&quot;tableIndex&quot; [hideColumns]&#x3D;&quot;tableOption.hideColumns&quot;
+                [hideColumnsOfExpandedItems]&#x3D;&quot;tableOption.hideColumnsOfExpandedItems&quot;
+                [hideColumnsOfExpandedItemDetails]&#x3D;&quot;tableOption.hideColumnsOfExpandedItemDetails&quot; [groupIndex]&#x3D;&quot;tableIndex&quot;
+                [groupName]&#x3D;&quot;tableOption.groupName&quot; [groupExpressions]&#x3D;&quot;tableOption.groupExpressions&quot; [itemRowColor]&#x3D;&quot;tableOption.groupItemRowColor&quot;
+                [columnOptions]&#x3D;&quot;tableOption.columnOptions&quot; [actionsSubject]&#x3D;&quot;actionsSubject&quot; [mouseEventsSubject]&#x3D;&quot;mouseEventsSubject&quot;&gt;&lt;/expandable-table-instance&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;!-- EXPANDABLE TABLE ONLY --&gt;
+    &lt;expandable-table-instance *ngIf&#x3D;&quot;tableOptions &#x3D;&#x3D; null || tableOptions.length &#x3D;&#x3D; 0&quot; [hideColumns]&#x3D;&quot;true&quot;
+        [hideColumnsOfExpandedItems]&#x3D;&quot;true&quot; [hideColumnsOfExpandedItemDetails]&#x3D;&quot;true&quot; [groupIndex]&#x3D;&quot;0&quot; [groupName]&#x3D;&quot;null&quot;
+        [groupExpressions]&#x3D;&quot;null&quot; [itemRowColor]&#x3D;&quot;null&quot; [columnOptions]&#x3D;&quot;null&quot; [actionsSubject]&#x3D;&quot;actionsSubject&quot;
+        [mouseEventsSubject]&#x3D;&quot;mouseEventsSubject&quot;&gt;&lt;/expandable-table-instance&gt;
+
+
+
+
+
+
+&lt;/div&gt;</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="pal-expandable-table-container">    <div class="pal-table-header" *ngIf="showFilter">        <mat-form-field class="pal-table-filter">            <input matInput value="{{filterHint}}" (click)="onFilterEnter()" (blur)="onFilterLeave()">            <!-- (keyup)="applyFilter($event.target.value)" -->        </mat-form-field>    </div>    <!-- EXPANDABLE TABLE WITH GROUPS -->    <div class="pal-expandable-table-grouped-container" *ngIf="tableOptions != null && tableOptions.length > 0">        <div class="pal-expandable-table-grouped" *ngFor="let tableOption of tableOptions; let tableIndex = index;">            <mat-toolbar class="pal-expandable-table-grouped-toolbar">{{tableOption.groupName}} </mat-toolbar>            <expandable-table-instance [palTableContainer]="tableIndex" [hideColumns]="tableOption.hideColumns"                [hideColumnsOfExpandedItems]="tableOption.hideColumnsOfExpandedItems"                [hideColumnsOfExpandedItemDetails]="tableOption.hideColumnsOfExpandedItemDetails" [groupIndex]="tableIndex"                [groupName]="tableOption.groupName" [groupExpressions]="tableOption.groupExpressions" [itemRowColor]="tableOption.groupItemRowColor"                [columnOptions]="tableOption.columnOptions" [actionsSubject]="actionsSubject" [mouseEventsSubject]="mouseEventsSubject"></expandable-table-instance>        </div>    </div>    <!-- EXPANDABLE TABLE ONLY -->    <expandable-table-instance *ngIf="tableOptions == null || tableOptions.length == 0" [hideColumns]="true"        [hideColumnsOfExpandedItems]="true" [hideColumnsOfExpandedItemDetails]="true" [groupIndex]="0" [groupName]="null"        [groupExpressions]="null" [itemRowColor]="null" [columnOptions]="null" [actionsSubject]="actionsSubject"        [mouseEventsSubject]="mouseEventsSubject"></expandable-table-instance></div></div>'
+    var COMPONENTS = [{'name': 'DynamicExpandableTableComponent', 'selector': 'dynamic-expandable-table'},{'name': 'DynamicTableComponent', 'selector': 'dynamic-table'},{'name': 'ExpandableTableInstanceComponent', 'selector': 'expandable-table-instance'},{'name': 'TableInstanceComponent', 'selector': 'table-instance-component'}];
+    var DIRECTIVES = [{'name': 'DynamicTableActionsContainerDirective', 'selector': '[palTableActionsContainer]'},{'name': 'DynamicTableColumnsContainerDirective', 'selector': '[palDynamicTableColumnsContainer]'},{'name': 'DynamicTableContainerDirective', 'selector': '[palTableContainer]'},{'name': 'DynamicTableContentSummaryContainerDirective', 'selector': '[palTableContentSummaryContainer]'},{'name': 'DynamicTableDescriptionContainerDirective', 'selector': '[palTableDescriptionContainer]'},{'name': 'DynamicTableIconContainerDirective', 'selector': '[palTableIconContainer]'},{'name': 'DynamicTableTitleContainerDirective', 'selector': '[palTableTitleContainer]'},{'name': 'PalTableAdditionalInfoContainerDirective', 'selector': '[palTableAdditionalInfoContainer]'}];
+    var ACTUAL_COMPONENT = {'name': 'DynamicExpandableTableComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'DynamicExpandableTableComponent.html';
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <script src="../js/menu-wc.js"></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

@@ -121,6 +121,41 @@
           }
         }
       }
+    },
+    "ngx-dynamic-material-table": {
+      "root": "ng-libraries/ngx-dynamic-material-table",
+      "sourceRoot": "ng-libraries/ngx-dynamic-material-table/src",
+      "projectType": "library",
+      "prefix": "ndmt",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "ng-libraries/ngx-dynamic-material-table/tsconfig.lib.json",
+            "project": "ng-libraries/ngx-dynamic-material-table/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "ng-libraries/ngx-dynamic-material-table/src/test.ts",
+            "tsConfig": "ng-libraries/ngx-dynamic-material-table/tsconfig.spec.json",
+            "karmaConfig": "ng-libraries/ngx-dynamic-material-table/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "ng-libraries/ngx-dynamic-material-table/tsconfig.lib.json",
+              "ng-libraries/ngx-dynamic-material-table/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "ngx-dynamic-table"

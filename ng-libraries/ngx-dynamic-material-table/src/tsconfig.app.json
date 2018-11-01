@@ -1,0 +1,34 @@
+{
+    "extends": "../tsconfig.lib.json",
+    "compilerOptions": {
+      "sourceMap": true,
+      "declaration": false,
+      "moduleResolution": "node",
+      "emitDecoratorMetadata": true,
+      "experimentalDecorators": true,
+      "target": "es5",
+      "lib": ["es6", "dom"],
+      "outDir": "../dist/out-tsc",
+      "baseUrl": "types",
+      "types": [],
+      "mapRoot": "./",
+      "typeRoots": [
+        "types",
+        "hammerjs",
+        "cordova",
+        "angular"
+      ],
+      "paths": {
+        "*": [
+          "../node_modules/*",
+          "../shared-mobile-web/*"
+        ]
+      }
+    },
+    "exclude": [
+      "test.ts",
+      "app/angular.test.module.ts",
+      "**/*.spec.ts"
+    ],
+    "includes": ["shared-mobile-web"]
+  }
