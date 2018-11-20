@@ -1,6 +1,5 @@
 # ngx-dynamic-material-table
-> Create fancy and complex tables 
-dynamically and very rapidly.
+> Create fancy and complex tables dynamically and very rapidly.
 
 ![header](header.png)
 

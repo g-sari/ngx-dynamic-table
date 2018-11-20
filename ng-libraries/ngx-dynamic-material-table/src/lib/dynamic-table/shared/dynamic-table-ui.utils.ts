@@ -93,4 +93,13 @@ export class DynamicTableUIUtils {
         return miniFabButton;
     }
 
+    /**
+     * Conserve aspect ratio of the original region. Useful when shrinking/enlarging
+     * images to fit into a certain area.
+     */
+    public static calculateAspectRatioFit(srcWidth: number, srcHeight: number, maxWidth: number, maxHeight: number): Object {
+        const ratio = Math.min(maxWidth / srcWidth, maxHeight / srcHeight);
+        return { width: srcWidth * ratio, height: srcHeight * ratio };
+    }
+
 }

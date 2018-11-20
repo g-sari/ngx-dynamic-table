@@ -74,7 +74,7 @@ export class DynamicTableDataProvider implements DynamicTableDataInterface<objec
         return '<button mat-raised-button (click)="openSideNav(element)">Open</button>';
     }
 
-    getOtherTextBased(item: object, rowIndex: number, groupIndex: number, groupName: string): string {
+    getOtherTextBased(item: object, columnIndex: number, groupIndex: number, groupName: string): string {
         return 'this is an other text based column';
     }
 

@@ -109,7 +109,6 @@ export abstract class AbstractDynamicTableDataProvider<T> implements DynamicTabl
     abstract getHTMLAction(item: T, rowIndex: number, groupIndex: number, groupName: string): string;
 
     // Predefined column OtherTextBased: Retrieves an other text based cell for each data row/item.
-    abstract getOtherTextBased(item: T, rowIndex: number, groupIndex: number, groupName: string): string;
-
+    abstract getOtherTextBased(item: T, columnIndex: number, groupIndex: number, groupName: string): string;
 
 }

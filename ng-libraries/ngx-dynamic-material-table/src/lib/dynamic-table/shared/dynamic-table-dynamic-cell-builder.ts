@@ -5,10 +5,11 @@
  * @author Gökhan Sari - <goekhan.sari@arpage.ch>                  *
  * @copyright Arpage AG, Zurich Switzerland, 2018                  *
  *******************************************************************/
-import { Injectable, Injector, ViewContainerRef, Component, ComponentRef, OnInit, NgModule } from '@angular/core';
+import { Injectable, Injector, ViewContainerRef, Component, ComponentRef, OnInit, NgModule, ChangeDetectorRef, AfterViewChecked } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule, MatIconModule, MatDividerModule, MatTooltipModule, MatSlideToggleModule } from '@angular/material';
 import { AbstractDynamicBaseService } from '../../abstract-dynamic-base.service';
+import { DynamicTableUIUtils } from './dynamic-table-ui.utils';
 
 
 @Injectable()
@@ -44,11 +45,16 @@ export class DynamicTableDynamicCellBuilder extends AbstractDynamicBaseService {
          * @param componentOptions
          */
         @Component(componentOptions)
-        class PalTableColumnComponent implements OnInit {
+        class PalTableColumnComponent implements OnInit, AfterViewChecked {
 
-            constructor() { }
+            constructor(private changeDetectorRef: ChangeDetectorRef) { }
 
-            ngOnInit() { }
+            ngOnInit() {}
+
+            ngAfterViewChecked() {
+                // remove from the change detection tree
+                this.changeDetectorRef.detach();
+            }
 
             /**
              * @description Publishes an action to the caller component.
@@ -86,6 +92,19 @@ export class DynamicTableDynamicCellBuilder extends AbstractDynamicBaseService {
                 properties.mouseEventMessage.setMouseEvent(mouseEvent);
                 properties.mouseEventMessage.setItem(item);
                 properties.mouseEventsSubject.next(properties.mouseEventMessage);
+            }
+
+            /**
+             * Resizes the given image proportionally regarding the max width and height.
+             *
+             * @param img
+             * @param maxWidth
+             * @param maxHeight
+             */
+            public resizeImageProportional(img, maxWidth: number, maxHeight: number) {
+                const proportionalSize = DynamicTableUIUtils.calculateAspectRatioFit(img.clientWidth, img.clientHeight, maxWidth, maxHeight);
+                img.width = proportionalSize['width'];
+                img.height = proportionalSize['height'];
             }
         }
         /**

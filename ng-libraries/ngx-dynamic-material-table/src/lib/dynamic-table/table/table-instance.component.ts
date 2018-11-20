@@ -15,7 +15,8 @@ import {
     Input,
     OnInit,
     OnDestroy,
-    AfterViewInit
+    AfterViewInit,
+    AfterViewChecked
 } from '@angular/core';
 import { AbstractWebLibraryComponent } from '../../abstract-web-library.component';
 import { DynamicTableInterface } from '../interfaces/dynamic-table.interface';
@@ -54,7 +55,7 @@ import { DynamicTableExpressionBuilder } from '../shared/dynamic-table-expressio
     styleUrls: ['./table-instance.component.scss']
 })
 export class TableInstanceComponent extends AbstractWebLibraryComponent
-    implements OnInit, AfterViewInit, OnDestroy, DynamicTableInterface<Object> {
+    implements OnInit, AfterViewInit, AfterViewChecked, OnDestroy, DynamicTableInterface<Object> {
 
     // Public variables
     public static readonly FILTER_MIN_VALUE = 3;
@@ -80,6 +81,9 @@ export class TableInstanceComponent extends AbstractWebLibraryComponent
     private palTableDynamicCellBuilder: DynamicTableDynamicCellBuilder;
     private actionMessage: DynamicTableActionMessageService<object>;
     private mouseEventMessage: DynamicTableMouseEventMessageService<object>;
+    private indicatorCell: string;
+    private indicatorSignCell: string;
+    private otherTextBasedCell: string;
     // @ViewChild selections
     @ViewChildren(DynamicTableIconContainerDirective)
     public palTableIconContainerQueryList: QueryList<DynamicTableIconContainerDirective>;
@@ -146,6 +150,14 @@ export class TableInstanceComponent extends AbstractWebLibraryComponent
         });
         //  Trigger data loading
         this.loadData();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    ngAfterViewChecked() {
+        // remove from the change detection tree
+        // this.changeDetectorRef.detach();
     }
 
     /**
@@ -327,7 +339,10 @@ export class TableInstanceComponent extends AbstractWebLibraryComponent
      * @returns string
      */
     public getIndicatorColor(item: object, rowIndex: number): string {
-        return this.palTableDataProvider.getIndicatorColor(item, rowIndex, this.groupIndex, this.groupName);
+        if (this.indicatorCell == null) {
+            this.indicatorCell = this.palTableDataProvider.getIndicatorColor(item, rowIndex, this.groupIndex, this.groupName);
+        }
+        return this.indicatorCell;
     }
 
     /**
@@ -338,7 +353,10 @@ export class TableInstanceComponent extends AbstractWebLibraryComponent
      * @returns string
      */
     public getIndicatorSign(item: object, rowIndex: number): string {
-        return this.palTableDataProvider.getIndicatorSign(item, rowIndex, this.groupIndex, this.groupName);
+        if (this.indicatorSignCell == null) {
+            this.indicatorSignCell = this.palTableDataProvider.getIndicatorSign(item, rowIndex, this.groupIndex, this.groupName);
+        }
+        return this.indicatorSignCell;
     }
 
     /**
@@ -351,22 +369,24 @@ export class TableInstanceComponent extends AbstractWebLibraryComponent
      */
     public getHTMLContentSummary(item: object, rowIndex: number): string {
         this.palTableContentSummaryContainerDirectives = this.palTableContentSummaryContainerQueryList.toArray();
-        const htmlContentSummary = this.palTableDataProvider.getHTMLContentSummary(item, rowIndex, this.groupIndex, this.groupName);
         const palTableContentSummaryContainerDirective = this.palTableContentSummaryContainerDirectives[rowIndex];
         if (palTableContentSummaryContainerDirective != null) {
-            this.zone.run(() =>
-                this.palTableDynamicCellBuilder.createColumn(
-                    palTableContentSummaryContainerDirective.viewContainerRef,
-                    htmlContentSummary,
-                    this.getColumnsStyleUrl(),
-                    {
-                        item: item,
-                        actionsSubject: this.actionsSubject,
-                        actionMessage: this.actionMessage,
-                        mouseEventsSubject: this.mouseEventsSubject,
-                        mouseEventMessage: this.mouseEventMessage
-                    }
-                ));
+            if (palTableContentSummaryContainerDirective.viewContainerRef.length === 0) {
+                const htmlContentSummary = this.palTableDataProvider.getHTMLContentSummary(item, rowIndex, this.groupIndex, this.groupName);
+                this.zone.run(() =>
+                    this.palTableDynamicCellBuilder.createColumn(
+                        palTableContentSummaryContainerDirective.viewContainerRef,
+                        htmlContentSummary,
+                        this.getColumnsStyleUrl(),
+                        {
+                            item: item,
+                            actionsSubject: this.actionsSubject,
+                            actionMessage: this.actionMessage,
+                            mouseEventsSubject: this.mouseEventsSubject,
+                            mouseEventMessage: this.mouseEventMessage
+                        }
+                    ));
+            }
         }
         return '';
     }
@@ -381,22 +401,24 @@ export class TableInstanceComponent extends AbstractWebLibraryComponent
      */
     public getAdditionalInfo(item: object, rowIndex: number): string {
         this.palTableAdditionalInfoContainerDirectives = this.palTableAdditionalInfoContainerQueryList.toArray();
-        const htmlAdditionalInfo = this.palTableDataProvider.getAdditionalInfo(item, rowIndex, this.groupIndex, this.groupName);
         const palTableAdditionalInfoContainerDirective = this.palTableAdditionalInfoContainerDirectives[rowIndex];
         if (palTableAdditionalInfoContainerDirective != null) {
-            this.zone.run(() =>
-                this.palTableDynamicCellBuilder.createColumn(
-                    palTableAdditionalInfoContainerDirective.viewContainerRef,
-                    htmlAdditionalInfo,
-                    this.getColumnsStyleUrl(),
-                    {
-                        item: item,
-                        actionsSubject: this.actionsSubject,
-                        actionMessage: this.actionMessage,
-                        mouseEventsSubject: this.mouseEventsSubject,
-                        mouseEventMessage: this.mouseEventMessage
-                    }
-                ));
+            if (palTableAdditionalInfoContainerDirective.viewContainerRef.length === 0) {
+                const htmlAdditionalInfo = this.palTableDataProvider.getAdditionalInfo(item, rowIndex, this.groupIndex, this.groupName);
+                this.zone.run(() =>
+                    this.palTableDynamicCellBuilder.createColumn(
+                        palTableAdditionalInfoContainerDirective.viewContainerRef,
+                        htmlAdditionalInfo,
+                        this.getColumnsStyleUrl(),
+                        {
+                            item: item,
+                            actionsSubject: this.actionsSubject,
+                            actionMessage: this.actionMessage,
+                            mouseEventsSubject: this.mouseEventsSubject,
+                            mouseEventMessage: this.mouseEventMessage
+                        }
+                    ));
+            }
         }
         return '';
     }
@@ -411,28 +433,30 @@ export class TableInstanceComponent extends AbstractWebLibraryComponent
      */
     public getHTMLIcon(item: object, rowIndex: number): string {
         this.palTableIconContainerDirectives = this.palTableIconContainerQueryList.toArray();
-        const iconHtml = this.palTableDataProvider.getHTMLIcon(item, rowIndex, this.groupIndex, this.groupName);
         const palTableIconContainerDirective = this.palTableIconContainerDirectives[rowIndex];
         if (palTableIconContainerDirective != null) {
-            this.zone.run(() =>
-                this.palTableDynamicCellBuilder.createColumn(
-                    palTableIconContainerDirective.viewContainerRef,
-                    iconHtml,
-                    this.getColumnsStyleUrl(),
-                    {
-                        item: item,
-                        actionsSubject: this.actionsSubject,
-                        actionMessage: this.actionMessage,
-                        mouseEventsSubject: this.mouseEventsSubject,
-                        mouseEventMessage: this.mouseEventMessage
-                    }
-                ));
+            if (palTableIconContainerDirective.viewContainerRef.length === 0) {
+                const iconHtml = this.palTableDataProvider.getHTMLIcon(item, rowIndex, this.groupIndex, this.groupName);
+                this.zone.run(() =>
+                    this.palTableDynamicCellBuilder.createColumn(
+                        palTableIconContainerDirective.viewContainerRef,
+                        iconHtml,
+                        this.getColumnsStyleUrl(),
+                        {
+                            item: item,
+                            actionsSubject: this.actionsSubject,
+                            actionMessage: this.actionMessage,
+                            mouseEventsSubject: this.mouseEventsSubject,
+                            mouseEventMessage: this.mouseEventMessage
+                        }
+                    ));
+            }
         }
         return '';
     }
 
     /**
-     * @description Retrieves the title cell provided by the table data provider.
+     * @description Retrieves the title cell provided by the table data provider.m
      * The title can be defined as html string which will be compiled and rendered dynamically in this cell.
      *
      * @param item
@@ -441,22 +465,24 @@ export class TableInstanceComponent extends AbstractWebLibraryComponent
      */
     public getTitle(item: object, rowIndex: number): string {
         this.palTableTitleContainerDirectives = this.palTableTitleContainerQueryList.toArray();
-        const htmlTitle = this.palTableDataProvider.getTitle(item, rowIndex, this.groupIndex, this.groupName);
         const palTableTitleContainerDirective = this.palTableTitleContainerDirectives[rowIndex];
         if (palTableTitleContainerDirective != null) {
-            this.zone.run(() =>
-                this.palTableDynamicCellBuilder.createColumn(
-                    palTableTitleContainerDirective.viewContainerRef,
-                    htmlTitle,
-                    this.getColumnsStyleUrl(),
-                    {
-                        item: item,
-                        actionsSubject: this.actionsSubject,
-                        actionMessage: this.actionMessage,
-                        mouseEventsSubject: this.mouseEventsSubject,
-                        mouseEventMessage: this.mouseEventMessage
-                    }
-                ));
+            if (palTableTitleContainerDirective.viewContainerRef.length === 0) {
+                const htmlTitle = this.palTableDataProvider.getTitle(item, rowIndex, this.groupIndex, this.groupName);
+                this.zone.run(() =>
+                    this.palTableDynamicCellBuilder.createColumn(
+                        palTableTitleContainerDirective.viewContainerRef,
+                        htmlTitle,
+                        this.getColumnsStyleUrl(),
+                        {
+                            item: item,
+                            actionsSubject: this.actionsSubject,
+                            actionMessage: this.actionMessage,
+                            mouseEventsSubject: this.mouseEventsSubject,
+                            mouseEventMessage: this.mouseEventMessage
+                        }
+                    ));
+            }
         }
         return '';
     }
@@ -469,7 +495,10 @@ export class TableInstanceComponent extends AbstractWebLibraryComponent
      * @returns string
      */
     public getOtherTextBased(item: object, rowIndex: number): string {
-        return this.palTableDataProvider.getOtherTextBased(item, rowIndex, this.groupIndex, this.groupName);
+        if (this.otherTextBasedCell == null) {
+            this.otherTextBasedCell = this.palTableDataProvider.getOtherTextBased(item, rowIndex, this.groupIndex, this.groupName);
+        }
+        return this.otherTextBasedCell;
     }
 
     /**
@@ -482,22 +511,24 @@ export class TableInstanceComponent extends AbstractWebLibraryComponent
      */
     public getDescription(item: object, rowIndex: number): string {
         this.palTableDescriptionContainerDirectives = this.palTableDescriptionContainerQueryList.toArray();
-        const htmlDescription = this.palTableDataProvider.getDescription(item, rowIndex, this.groupIndex, this.groupName);
         const palTableDescriptionContainerDirective = this.palTableDescriptionContainerDirectives[rowIndex];
         if (palTableDescriptionContainerDirective != null) {
-            this.zone.run(() =>
-                this.palTableDynamicCellBuilder.createColumn(
-                    palTableDescriptionContainerDirective.viewContainerRef,
-                    htmlDescription,
-                    this.getColumnsStyleUrl(),
-                    {
-                        item: item,
-                        actionsSubject: this.actionsSubject,
-                        actionMessage: this.actionMessage,
-                        mouseEventsSubject: this.mouseEventsSubject,
-                        mouseEventMessage: this.mouseEventMessage
-                    }
-                ));
+            if (palTableDescriptionContainerDirective.viewContainerRef.length === 0) {
+                const htmlDescription = this.palTableDataProvider.getDescription(item, rowIndex, this.groupIndex, this.groupName);
+                this.zone.run(() =>
+                    this.palTableDynamicCellBuilder.createColumn(
+                        palTableDescriptionContainerDirective.viewContainerRef,
+                        htmlDescription,
+                        this.getColumnsStyleUrl(),
+                        {
+                            item: item,
+                            actionsSubject: this.actionsSubject,
+                            actionMessage: this.actionMessage,
+                            mouseEventsSubject: this.mouseEventsSubject,
+                            mouseEventMessage: this.mouseEventMessage
+                        }
+                    ));
+            }
         }
         return '';
     }
@@ -512,23 +543,25 @@ export class TableInstanceComponent extends AbstractWebLibraryComponent
      */
     public getHTMLAction(item: object, rowIndex: number): string {
         this.palTableActionsContainerDirectives = this.palTableActionsContainerQueryList.toArray();
-        const actionsHtml = this.palTableDataProvider.getHTMLAction(item, rowIndex, this.groupIndex, this.groupName);
         const palTableActionsContainerDirective = this.palTableActionsContainerDirectives[rowIndex];
         if (palTableActionsContainerDirective != null) {
-            this.zone.run(() => {
-                this.palTableDynamicCellBuilder.createColumn(
-                    palTableActionsContainerDirective.viewContainerRef,
-                    actionsHtml,
-                    this.getColumnsStyleUrl(),
-                    {
-                        item: item,
-                        actionsSubject: this.actionsSubject,
-                        actionMessage: this.actionMessage,
-                        mouseEventsSubject: this.mouseEventsSubject,
-                        mouseEventMessage: this.mouseEventMessage
-                    }
-                );
-            });
+            if (palTableActionsContainerDirective.viewContainerRef.length === 0) {
+                const actionsHtml = this.palTableDataProvider.getHTMLAction(item, rowIndex, this.groupIndex, this.groupName);
+                this.zone.run(() => {
+                    this.palTableDynamicCellBuilder.createColumn(
+                        palTableActionsContainerDirective.viewContainerRef,
+                        actionsHtml,
+                        this.getColumnsStyleUrl(),
+                        {
+                            item: item,
+                            actionsSubject: this.actionsSubject,
+                            actionMessage: this.actionMessage,
+                            mouseEventsSubject: this.mouseEventsSubject,
+                            mouseEventMessage: this.mouseEventMessage
+                        }
+                    );
+                });
+            }
         }
         return '';
     }
@@ -618,8 +651,5 @@ export class TableInstanceComponent extends AbstractWebLibraryComponent
     public onFilterLeave(): void {
         this.filterHint = 'Filter';
     }
-
-
-
 
 }
