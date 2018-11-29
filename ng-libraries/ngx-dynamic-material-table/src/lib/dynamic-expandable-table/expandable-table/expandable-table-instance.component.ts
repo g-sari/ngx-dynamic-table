@@ -40,6 +40,7 @@ export class ExpandableTableInstanceComponent extends TableInstanceComponent {
     public static readonly EXPANDED_ITEM_EXPANDABLE_COLUMN_ID = 'expandedItemExpandableColumn';
     public expandedElement: any;
     public expandedElement2: any;
+    public isThirdLevelExpanded: boolean;
     private palExpandableDataProvider: DynamicExpandableTableDataProvider;
     public expandedItemColumns: string[];
     public expandedItemDetailsDataSource: MatTableDataSource<any> = new MatTableDataSource();
@@ -71,6 +72,7 @@ export class ExpandableTableInstanceComponent extends TableInstanceComponent {
         this.expandedElement = (this.expandedElement !== currentSelectedItem) ? currentSelectedItem : null;
         // Collapse 2.Level
         this.expandedElement2 = null;
+        this.isThirdLevelExpanded = false;
         this.expandedItemDetailsDataSource.data = [];
     }
 
@@ -95,9 +97,14 @@ export class ExpandableTableInstanceComponent extends TableInstanceComponent {
     }
 
     public selectItem2(expandedItemDetails: object, expandedItem: object) {
-        this.expandedElement2 = expandedItemDetails;
+        this.isThirdLevelExpanded = !this.isThirdLevelExpanded;
         this.expandedItemDetailsDataSource.data = [];
-        this.loadExpandedItemDetailsTableData(expandedItemDetails, expandedItem);
+        if (this.isThirdLevelExpanded) {
+            this.expandedElement2 = expandedItemDetails;
+            this.loadExpandedItemDetailsTableData(expandedItemDetails, expandedItem);
+        } else {
+            this.expandedElement2 = null;
+        }
     }
 
     getExpandedItemTableColumns(expandedItem: object): DynamicExpandableTableExpandedItemColumnInterace[] {
